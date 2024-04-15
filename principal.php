@@ -1,27 +1,6 @@
-<?php
-session_start();
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-    header('Location: ./');
-    exit;
-}
+<?php include_once('header.php');
+
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALDP</title>
-  <link rel="stylesheet" href="./lib/bootstrap.min.css">
-
-  <style>
-    body {
-      background: #123;
-    }
-  </style>
 </head>
 
 <body>

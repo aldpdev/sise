@@ -1,45 +1,6 @@
-<?php
-session_start();
+<?php include_once('header.php');
 include_once("./enlace.php");
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-  header('Location: ./');
-  exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-  header('Location: ./');
-  exit;
-}
-/**
-MODIFICACION REALIZADASD 01/04/2024
-SE MODIFICO LA FUENTE DEL BODY POR COMPLETO DENTRO EL BODY
-SEE IMPLEMENTO "TABLE-RESPONSIBLE"
-SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA DECORTAIVA POR EL MOMENTO
-*/
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALDP</title>
-  <link rel="stylesheet" href="./lib/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="./tm/toastr.scss" rel="stylesheet" />
-  <style>
-    body {
-      background: #123;
-      color: #fff;
-      font-size: small;    
-       }  
-  </style>
-</head>
-
 <body>
   <?php include_once('menu.php'); ?>
 
@@ -386,4 +347,9 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
 
 </body>
 
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

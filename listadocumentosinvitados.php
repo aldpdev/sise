@@ -1,34 +1,6 @@
-<?php
-session_start();
+<?php include_once('header.php');
 include_once("./enlace.php");
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-    header('Location: ./');
-    exit;
-}
-if ($_SESSION['rol'] != "INVITADO") {
-    header('Location: ./');
-    exit;
-}
 ?>
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALDP</title>
-  <link rel="stylesheet" href="./lib/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="./tm/toastr.scss" rel="stylesheet" />
-  <style>
-    body {
-      background: #123;
-      color: #fff;
-    }
-  </style>
-</head>
 
 <body>
   <?php include_once('menu.php'); ?>

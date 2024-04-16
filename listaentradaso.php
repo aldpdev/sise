@@ -202,5 +202,9 @@ include_once("./enlace.php");
   </script>
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

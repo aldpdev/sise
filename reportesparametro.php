@@ -6,7 +6,7 @@
     
 
     <div class="container">
-        <h3 class="text-light text-center">REPORTE POR INTERVALO</h3>
+        <h3 class=" text-center">REPORTE POR INTERVALO</h3>
         <form id="registrararea">
             <div class="form-group">
                 <label for="fechainicio">Fecha Inicio</label>
@@ -81,5 +81,9 @@
 
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

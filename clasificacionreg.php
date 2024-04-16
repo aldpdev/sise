@@ -5,7 +5,7 @@
   <?php include_once('menu.php'); ?>
 
   <div class="container">
-    <h3 class="text-light text-center">REGISTRO DE AREA, UNIDAD FUNCIONAL O COMISION DE LA ALDP</h3>
+    <h3 class="text-center">REGISTRO DE AREA, UNIDAD FUNCIONAL O COMISION DE LA ALDP</h3>
     <form id="registrararea">
       <div class="form-group">
         <label for="nombre">Nombre Area</label>
@@ -71,5 +71,9 @@
 
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

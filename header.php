@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ 
 if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
   header('Location: ./');
   exit;
@@ -9,6 +9,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   header('Location: ./');
   exit;
   }
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +25,11 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <link href="./tm/toastr.scss" rel="stylesheet" />
+  
   <style>
     body {
-      background: #123;
-      color: #fff;
+      background: #EAEAEA;
+      color: #514d51;
       font-size: small;  
     }
 
@@ -37,18 +39,11 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
     }
 
     .form-control {
-      background-color: #343a40;
+      background-color: #ffffff;
       border: none;
       border-radius: 0;
-      color: #fff;
-    }
-
-    .form-control:focus {
-      background-color: #495057;
-      border-color: #fff;
-      box-shadow: none;
-      color: #fff;
-    }
+      color: #110b12;
+    }    
 
     .btn-primary {
       background-color: #007bff;
@@ -64,7 +59,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
     }
 
     label {
-      color: #fff;
+      color: #110b12;
       font-weight: bold;
       text-transform: uppercase;
     }

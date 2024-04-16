@@ -6,7 +6,7 @@ include_once("./enlace.php");
   <?php include_once('menu.php'); ?>
 
   <div class="container">
-    <h3 class="text-light text-center">ACTUALIZAR REGISTRO DE ENTRADA DE DOCUMENTACION</h3>
+    <h3 class=" text-center">ACTUALIZAR REGISTRO DE ENTRADA DE DOCUMENTACION</h3>
     <div id="carga" class="text-center" style="display:none;">
       <img src="./imagenes/cargando.gif" />
     </div>
@@ -243,4 +243,9 @@ include_once("./enlace.php");
 
 </body>
 
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

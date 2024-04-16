@@ -1,14 +1,13 @@
 <?php include_once('header.php');
 
 ?>
-
 <body>
   <?php include_once('menu.php'); ?>
-  
+    
   <div class="container">
-    <h3 class="text-light text-center">SEGUIMIENTO DOCUMENTACION ALDP</h3>
+    <h3 class=" text-center">SEGUIMIENTO DOCUMENTACION ALDP</h3>
     <div id="carga" class="text-center" style="display:none;">
-      <img src="./imagenes/cargando.gif" />
+      <img src="./imxagenes/cargando.gif" />
     </div>
     <div id="formulario" style="display:block">
       <form id="registrarentrada" method="post" enctype="multipart/form-data">
@@ -201,5 +200,9 @@
 
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

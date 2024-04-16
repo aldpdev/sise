@@ -10,7 +10,7 @@ include_once("./enlace.php");
     <div class="table-responsive text-justify">
       <div class="col-lg-12 "  >
 
-        <table id="tablaareas" class="table table-sm table-striped table-bordered table-condensed table-dark table-hover" data-target="#grandparentContent" data-toggle="collapse" style="width:100%">
+        <table id="tablaareas" class="table table-sm table-striped table-bordered table-condensed table-secondary table-hover" data-target="#grandparentContent" data-toggle="collapse" style="width:100%">
           <thead class="text-center">
             <tr>
               <th>id</th>
@@ -18,7 +18,7 @@ include_once("./enlace.php");
               <th>CATEGORIA</th>
               <th>N° DOC</th>
               <th>GESTION <BR>
-              <select name="tablaareas_length" aria-controls="tablaareas" class="custom-select custom-select-sm form-control form-control-sm">
+              <select name="tablaareas_length" aria-controls="tablaareas" class="custom-select custom-secondary custom-select-sm form-control form-control-sm">
                 <option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option></select></th>
               <th>FECHA INGRESO</th>
               <th>BENEFICIARIO</th>

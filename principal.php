@@ -11,7 +11,7 @@
       <div class="page-title">
         <div class="text-center">
           <img src="./imagenes/logo.png" class="img img-responsive" width="35%" title="Asamblea Legislativa del departamento autónomo de Potosi" alt="Asamblea Legislativa del departamento autónomo de Potosi">
-          <h3 class="text-light">Bienvenidos <br><small> Asamblea Legislativa Departamental<br> Potosi - Bolivia </small></h3>
+          <h3 class="text-black">Bienvenidos <br><small> Asamblea Legislativa Departamental<br> Potosi - Bolivia </small></h3>
         </div>
       </div>
     </div>
@@ -24,5 +24,9 @@
   </script>
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

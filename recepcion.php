@@ -1,66 +1,10 @@
+<head>
 <?php include_once('header.php');
 
 ?>
-
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALDP</title>
-  <link rel="stylesheet" href="./lib/bootstrap.min.css">
-  <link href="./tm/toastr.scss" rel="stylesheet" />
-  <style>
-    body {
-      background: #EAEAEA;
-    }
-
-    .container {
-      max-width: 60%;
-      margin-top: 0px;
-    }
-
-    .form-control {
-      background-color: #343a40;
-      border: none;
-      border-radius: 0;
-      color: #fff;
-    }
-
-    .form-control:focus {
-      background-color: #495057;
-      border-color: #fff;
-      box-shadow: none;
-      color: #fff;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      border: none;
-      border-radius: 0;
-    }
-
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background-color: #0069d9;
-      border: none;
-      border-radius: 0;
-    }
-
-    label {
-      color: #fff;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-  </style>
+  
 </head>
 
-=======
->>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
   <?php include_once('menu.php'); ?>
   

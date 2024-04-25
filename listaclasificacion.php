@@ -1,15 +1,7 @@
-<?php
-session_start();
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-    header('Location: ./');
-    exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-    header('Location: ./');
-    exit;
-}
+<?php include_once('header.php');
 ?>
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +27,8 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   </style>
 </head>
 
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
   <?php include_once('menu.php'); ?>
 
@@ -42,7 +36,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <table id="tablaareas" class="table table-striped table-bordered table-condensed table-dark" style="width:100%">
+        <table id="tablaareas" class="table table-striped table-bordered table-condensed" style="width:100%">
           <thead class="text-center">
             <tr>
               <th>id</th>
@@ -91,5 +85,9 @@ var _0x26eb=["\x2E\x2F\x6C\x69\x62\x2F\x53\x70\x61\x6E\x69\x73\x68\x2E\x6A\x73\x
   </script>
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

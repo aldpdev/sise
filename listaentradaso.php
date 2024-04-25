@@ -1,15 +1,7 @@
-<?php
-session_start();
+<?php include_once('header.php');
 include_once("./enlace.php");
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-  header('Location: ./');
-  exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-  header('Location: ./');
-  exit;
-}
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +21,8 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
     }
   </style>
 </head>
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 
 <body>
   <?php include_once('menu.php'); ?>
@@ -230,5 +224,9 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   </script>
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

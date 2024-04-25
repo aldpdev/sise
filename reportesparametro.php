@@ -1,14 +1,7 @@
-<?php
-session_start();
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-    header('Location: ./');
-    exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-    header('Location: ./');
-    exit;
-}
+<?php include_once('header.php');
+
 ?>
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,12 +69,14 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
 
 </head>
 
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
     <?php include_once('menu.php'); ?>
     
 
     <div class="container">
-        <h3 class="text-light text-center">REPORTE POR INTERVALO</h3>
+        <h3 class=" text-center">REPORTE POR INTERVALO</h3>
         <form id="registrararea">
             <div class="form-group">
                 <label for="fechainicio">Fecha Inicio</label>
@@ -156,5 +151,9 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
 
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

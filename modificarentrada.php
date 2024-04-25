@@ -1,19 +1,8 @@
-<?php
-session_start();
-include("enlace.php");
-
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-  header('Location: ./');
-  exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-  header('Location: ./');
-  exit;
-}
-
-
+<?php include_once('header.php');
+include_once("./enlace.php");
 ?>
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,11 +59,13 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   </style>
 </head>
 
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
   <?php include_once('menu.php'); ?>
 
   <div class="container">
-    <h3 class="text-light text-center">ACTUALIZAR REGISTRO DE ENTRADA DE DOCUMENTACION</h3>
+    <h3 class=" text-center">ACTUALIZAR REGISTRO DE ENTRADA DE DOCUMENTACION</h3>
     <div id="carga" class="text-center" style="display:none;">
       <img src="./imagenes/cargando.gif" />
     </div>
@@ -311,4 +302,9 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
 
 </body>
 
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

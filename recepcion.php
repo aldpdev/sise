@@ -1,15 +1,8 @@
-<?php
-session_start();
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-  header('Location: ./');
-  exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-  header('Location: ./');
-  exit;
-}
+<?php include_once('header.php');
+
 ?>
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,11 +59,13 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   </style>
 </head>
 
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
   <?php include_once('menu.php'); ?>
   
   <div class="container">
-    <h3 class="text-light text-center">Asamblea departamental de POTOSI</h3>
+    <h3 class="text-center">Asamblea departamental de POTOSI</h3>
     <div id="carga" class="text-center" style="display:none;">
       <img src="./imagenes/cargando.gif" />
     </div>
@@ -265,5 +260,9 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
 
 
 </body>
-
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

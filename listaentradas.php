@@ -1,21 +1,7 @@
-<?php
-session_start();
+<?php include_once('header.php');
 include_once("./enlace.php");
-if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
-  header('Location: ./');
-  exit;
-}
-if ($_SESSION['rol'] != "ADMINISTRADOR") {
-  header('Location: ./');
-  exit;
-}
-/**
-MODIFICACION REALIZADASD 01/04/2024
-SE MODIFICO LA FUENTE DEL BODY POR COMPLETO DENTRO EL BODY
-SEE IMPLEMENTO "TABLE-RESPONSIBLE"
-SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA DECORTAIVA POR EL MOMENTO
-*/
 ?>
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +26,8 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
   </style>
 </head>
 
+=======
+>>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 <body>
   <?php include_once('menu.php'); ?>
 
@@ -49,7 +37,7 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
     <div class="table-responsive text-justify">
       <div class="col-lg-12 "  >
 
-        <table id="tablaareas" class="table table-sm table-striped table-bordered table-condensed table-dark table-hover" data-target="#grandparentContent" data-toggle="collapse" style="width:100%">
+        <table id="tablaareas" class="table table-sm table-striped table-bordered table-condensed table-secondary table-hover" data-target="#grandparentContent" data-toggle="collapse" style="width:100%">
           <thead class="text-center">
             <tr>
               <th>id</th>
@@ -57,7 +45,7 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
               <th>CATEGORIA</th>
               <th>N° DOC</th>
               <th>GESTION <BR>
-              <select name="tablaareas_length" aria-controls="tablaareas" class="custom-select custom-select-sm form-control form-control-sm">
+              <select name="tablaareas_length" aria-controls="tablaareas" class="custom-select custom-secondary custom-select-sm form-control form-control-sm">
                 <option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option></select></th>
               <th>FECHA INGRESO</th>
               <th>BENEFICIARIO</th>
@@ -386,4 +374,9 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
 
 </body>
 
+<footer>
+<?php
+include_once('footer.php');
+?>
+</footer>
 </html>

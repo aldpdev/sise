@@ -24,7 +24,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
     <link href="./tm/toastr.scss" rel="stylesheet" />
     <style>
     body {
-        background: #123;
+        background: #EAEAEA;
     }
 
     .container {

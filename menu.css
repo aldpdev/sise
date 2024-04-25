@@ -1,0 +1,20 @@
+/* Estilos base de la barra de navegación */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Estilos de los elementos de la barra de navegación */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: transform 0.3s; /* Transición de 0.3 segundos al transformar */
+}
+
+/* Estilos de los elementos al pasar el mouse sobre ellos */
+.navbar a:hover {
+    transform: scale(1.1); /* Aumento del 10% al pasar el mouse */
+}

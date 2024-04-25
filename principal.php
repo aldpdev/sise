@@ -16,6 +16,7 @@ if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALDP</title>
   <link rel="stylesheet" href="./lib/bootstrap.min.css">
+  
 
   <style>
     body {

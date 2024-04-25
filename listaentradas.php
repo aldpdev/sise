@@ -33,7 +33,7 @@ SE AGREGO UN SELECCIODNADOR DENTRO LA TABLA EN LA SECCION DE "GESTION" DE MANERA
   <link href="./tm/toastr.scss" rel="stylesheet" />
   <style>
     body {
-      background: #123;
+      background: #EAEAEA;
       color: #fff;
       font-size: small;    
        }  

@@ -13,11 +13,18 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['rol'])) {
     <title>ALDP</title>
     
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
-
+    <link rel="stylesheet" href="./operaciones/styles.css">
+    <style>
+    body {
+    background-image: url('./imagenes/potos2.jpg');
+    background-size: cover; /* Para cubrir todo el fondo */
+    background-position: center; /* Para centrar la imagen */
+  }
+  </style>
   </head>
   <body>
     <div class="container mt-5">
-      <div class="row">
+      <div class="login">
         <div class="col-lg-6 m-auto">
           <div class="card">
 
@@ -25,17 +32,22 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['rol'])) {
               <h4 class="text-center">Iniciar Sesión</h4>
             </div>
             <div class="card-body">
-              <div class="alert alert-warning" role="alert">
-                Los credenciales de acceso no lo comparta con nadie.
+            
+              <div class="group">      
+                  <input type="text" id="usuario" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label for="usuario">Usuario</label>
               </div>
-                <div class="form-group">
-                  <label for="usernameInput">Usuario</label>
-                  <input type="text" class="form-control" id="usuario" aria-describedby="usernameHelp" placeholder="Ingresa tu nombre de usuario" required>
-                </div>
-                <div class="form-group">
-                  <label for="passwordInput">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
-                </div>
+              <div class="group">      
+                  <input type="password" id="password" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span> 
+                  <label for="password">Password</label>
+                  <span>
+                    <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
+                  </span>
+              </div>
                 <div class="form-group mt-2" align="center">
                   <button type="button" class="btn btn-outline-primary" id="submit">Iniciar Sesion</button>
                 </div>
@@ -59,6 +71,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['rol'])) {
     </script>
     <script src="./lib/bootstrap.min.js">
     </script>
+    
   </body>
 </html>
 
@@ -92,9 +105,19 @@ $(document).ready(function(){
 
 
 });
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (pwShown == 0) {
+        pwShown = 1;
+        show();
+    } else {
+        pwShown = 0;
+        hide();
+    }
+}, false);
 </script>
-<footer>
-<?php
-include_once('footer.php');
-?>
-</footer>
+
+
+
+      
+    

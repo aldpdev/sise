@@ -9,7 +9,7 @@ include_once("./enlace.php");
 
     <div class="row">
         <div class="col-lg-12">
-            <table id="tablacompartidos" class="table text-sm table-sm table-striped table-bordered table-condensed table-dark table-hover" style="width:100%">
+            <table id="tablacompartidos" class="table text-sm table-sm table-striped table-bordered table-condensed table-secondary table-hover" style="width:100%">
                 <thead class="text-center">
                     <tr>
                         <th>id</th>

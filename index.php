@@ -1,100 +1,152 @@
 <?php
+
+ob_start();
+header ("Expires: " . gmdate("D, d M Y H:i:s") . " GMT");
+header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-Type: text/html; charset=utf-8");
 session_start();
-if (isset($_SESSION['nombre']) && isset($_SESSION['rol'])) {
-  header('Location: ./principal');
-  exit;
+
+$_SESSION["loc"] = dirname($_SERVER['PHP_SELF']);
+if($_SESSION["loc"]=="/") $_SESSION["loc"] = "";
+$_SESSION["locr"] = dirname(__FILE__);
+if($_SESSION["locr"]=="/") $_SESSION["locr"] = "";
+
+require_once("globals.php");
+require_once("db.php");
+
+if (!isset($_GET["name"])) {
+
+	//para la validacion de login yes
+	if (ValidSession())
+	  	DBLogOut($_SESSION["usertable"]["usernumber"], $_SESSION["usertable"]["username"]=='admin');
+
+	session_unset();
+	session_destroy();
+	session_start();
+	$_SESSION["loc"] = dirname($_SERVER['PHP_SELF']);
+	if($_SESSION["loc"]=="/") $_SESSION["loc"] = "";
+	$_SESSION["locr"] = dirname(__FILE__);
+	if($_SESSION["locr"]=="/") $_SESSION["locr"] = "";
+
 }
+if(isset($_GET["getsessionid"])) {
+	echo session_id();
+	exit;
+}
+ob_end_flush();
+
 ?>
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ALDP</title>
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
 
+    <title>ALDP - Login</title>
+		<link rel="shortcut icon" href="images/favicon.png">
+    <!--<link rel=stylesheet href="Css.php" type="text/css">-->
+
+    <script language="JavaScript" src="sha256.js"></script>
+    <script language="JavaScript">
+function computeHASH()
+{
+	var userHASH, passHASH;
+	userHASH = document.form1.name.value;
+	passHASH = js_myhash(js_myhash(document.form1.password.value)+'<?php echo session_id(); ?>');
+	document.form1.name.value = '';
+	document.form1.password.value = '                                                                                 ';
+	document.location = 'index.php?name='+userHASH+'&password='+passHASH;
+}
+    </script>
+<?php
+if(function_exists("globalconf") && function_exists("sanitizeVariables")) {
+
+  if(isset($_GET["name"]) && $_GET["name"] != "" ) {
+
+    	$name = $_GET["name"];
+    	$password = $_GET["password"];
+			//para login ... log....
+    	$usertable = DBLogIn($name, $password);
+
+			if(!$usertable) {
+    		ForceLoad("index.php");
+    	}else {
+      			echo "<script language=\"JavaScript\">\n";
+      			echo "document.location='" . $_SESSION["usertable"]["usertype"] . "/index.php';\n";
+      			echo "</script>\n";
+      }
+      exit;
+  }
+} else {
+  echo "<script language=\"JavaScript\">\n";
+  echo "alert('No se pueden cargar los archivos de configuración. Posible problema de permisos de archivos en el directorio SIHCO.');\n";
+  echo "</script>\n";
+}
+
+?>
+
+
+
   </head>
-  <body>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-lg-6 m-auto">
-          <div class="card">
+  <body class="bg-secondary" id="fondo" onload="document.form1.name.focus()">
+    <div id="layoutAuthentication">
+      <div id="layoutAuthentication_content">
+        <main>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-5">
+                <div class="cardfabian shadow-lg border-0 rounded-lg mt-5">
+                  <div class="card-header"><h3 class="text-center font-weight-light text-white my-4">Acceso</h3></div>
+                    <div class="card-body">
+                      <form name="form1" action="javascript:computeHASH()">
 
-            <div class="card-header">
-              <h4 class="text-center">Iniciar Sesión</h4>
-            </div>
-            <div class="card-body">
-              <div class="alert alert-warning" role="alert">
-                Los credenciales de acceso no lo comparta con nadie.
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="name" name="name" placeholder="name@example.com" />
+                          <label for="name">Usuario</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="password" name="password" type="password" placeholder="Password" />
+                          <label for="password">Contraseña</label>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                          <a class="small" href="password.html">Has olvidado tu contraseña?</a>
+                          <!--<a class="btn btn-primary" href="index.html">Iniciar sesion</a>-->
+                          <input type="submit" class="btn btn-primary" name="Submit" value="Iniciar sesion">
+                        </div>
+
+                      </form>
+                    </div>
+                  <div class="card-footer text-center py-3"></div>
+                </div>
               </div>
-                <div class="form-group">
-                  <label for="usernameInput">Usuario</label>
-                  <input type="text" class="form-control" id="usuario" aria-describedby="usernameHelp" placeholder="Ingresa tu nombre de usuario" required>
-                </div>
-                <div class="form-group">
-                  <label for="passwordInput">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
-                </div>
-                <div class="form-group mt-2" align="center">
-                  <button type="button" class="btn btn-outline-primary" id="submit">Iniciar Sesion</button>
-                </div>
-                <!--<button type="submit" class="btn btn-light" style="float:right;">Iniciar Sesion</button>-->
-
-
-
-            </div>
-            <div class="alert alert-danger" id="mensaje" role="alert">
-                Verifique datos de los credenciales.
             </div>
           </div>
-        </div>
+        </main>
+      </div>
+
+      <div id="layoutAuthentication_footer">
+          <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+              <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">
+									Historial Clínico 2024
+								</div>
+              </div>
+            </div>
+          </footer>
       </div>
     </div>
 
-
-
     <script src="./lib/jquery.min.js"></script>
-    <script src="./lib/popper.min.js">
-    </script>
-    <script src="./lib/bootstrap.min.js">
-    </script>
+    <script src="./lib/popper.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
   </body>
 </html>
-
-<script>
-
-$(document).ready(function(){
-  $('#mensaje').hide();
-
-  $('#submit').click(function(){
-
-    var loginVals = {
-      "usuario":$('#usuario').val(),
-      "password":$('#password').val(),
-    };
-    if($('#usuario').val()==""){
-      $('#mensaje').show();
-    }else{
-      $.ajax({
-        type : "POST",
-        url:"operaciones/b_user.php",
-        data:loginVals,
-      }).done(function(resultado){
-			     location.href="./principal";
-		  });
-
-    }
-
-
-
-  });
-
-
-});
-</script>
-<footer>
-<?php
-include_once('footer.php');
-?>
-</footer>

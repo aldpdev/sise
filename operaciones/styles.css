@@ -1,12 +1,18 @@
 
-/*.eye-icon {
+button {
+  border: none;
+  outline: none;
+}
+#eye{
     position: absolute;
-    right: 10px;
-    top: 50%;
+    right: 0px;
+    top: 60%;
     transform: translateY(-50%);
     cursor: pointer;
-  }*/
-#eye {
+    background: #fff;
+    color: #333;
+}
+/*#eye {
   background: #fff;
   color: #333;
   margin: 5.9px 0 0 0;
@@ -21,7 +27,7 @@
   z-index: 5;
     
   cursor: pointer;
-}
+}*/
 .container {
   
   transition: opacity 0.3s ease; /* Transición suave */
@@ -138,4 +144,8 @@
   -webkit-animation: inputHighlighter 0.3s ease;
   -moz-animation: inputHighlighter 0.3s ease;
   animation: inputHighlighter 0.3s ease;
+}
+/* Estilo para quitar el borde de enfoque */
+button:focus {
+  outline: none;
 }

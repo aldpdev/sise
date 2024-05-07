@@ -14,110 +14,101 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['rol'])) {
     
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
     <link rel="stylesheet" href="./operaciones/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-    body {
-    background-image: url('./imagenes/potos2.jpg');
-    background-size: cover; /* Para cubrir todo el fondo */
-    background-position: center; /* Para centrar la imagen */
-  }
-  </style>
+      body {
+        background-image: url('./imagenes/potos2.jpg');
+        background-size: cover; /* Para cubrir todo el fondo */
+        background-position: center; /* Para centrar la imagen */
+      }
+
+      /* Estilo para quitar el borde de enfoque */
+      button:focus {
+        outline: none;
+      }
+    </style>
   </head>
   <body>
     <div class="container mt-5">
       <div class="login">
         <div class="col-lg-6 m-auto">
           <div class="card">
-
             <div class="card-header">
               <h4 class="text-center">Iniciar Sesión</h4>
             </div>
             <div class="card-body">
-            
-              <div class="group">      
-                  <input type="text" id="usuario" required>
+              <form id="loginForm">
+                <div class="group">      
+                  <input type="text" id="usuario" name="usuario" required>
                   <span class="highlight"></span>
                   <span class="bar"></span>
                   <label for="usuario">Usuario</label>
-              </div>
-              <div class="group">      
-                  <input type="password" id="password" required>
+                </div>
+                <div class="group">      
+                  <input type="password" id="password" name="password" required>
                   <span class="highlight"></span>
                   <span class="bar"></span> 
                   <label for="password">Password</label>
                   <span>
-                    <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
-                  </span>
-              </div>
-                <div class="form-group mt-2" align="center">
-                  <button type="button" class="btn btn-outline-primary" id="submit">Iniciar Sesion</button>
+                    <button id="eye" type="button"><i id="eye-icon" class="far fa-eye"></i></button>
+                  </span> 
                 </div>
-                <!--<button type="submit" class="btn btn-light" style="float:right;">Iniciar Sesion</button>-->
-
-
-
-            </div>
-            <div class="alert alert-danger" id="mensaje" role="alert">
+                <div class="form-group mt-2" align="center">
+                  <button type="button" class="btn btn-outline-primary" id="submit">Iniciar Sesión</button>
+                </div>
+              </form>
+              <div class="alert alert-danger" id="mensaje" role="alert" style="display:none;">
                 Verifique datos de los credenciales.
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
-
     <script src="./lib/jquery.min.js"></script>
-    <script src="./lib/popper.min.js">
+    <script src="./lib/popper.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#mensaje').hide();
+
+        $('#submit').click(function(){
+          var loginVals = $('#loginForm').serialize();
+          $.ajax({
+            type : "POST",
+            url:"operaciones/b_user.php",
+            data: loginVals,
+          }).done(function(resultado){
+            location.href="./principal";
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#mensaje').show().text("Error: " + errorThrown);
+          });
+        });
+
+        function show() {
+          $('#password').attr('type', 'text');
+          $('#eye-icon').removeClass('fa-eye').addClass('fa-eye-slash');
+        }
+
+        function hide() {
+          $('#password').attr('type', 'password');
+          $('#eye-icon').removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+
+        var pwShown = false;
+
+        $('#eye').click(function() {
+          if (pwShown) {
+            hide();
+            pwShown = false;
+          } else {
+            show();
+            pwShown = true;
+          }
+        });
+      });
     </script>
-    <script src="./lib/bootstrap.min.js">
-    </script>
-    
   </body>
 </html>
 
-<script>
-
-$(document).ready(function(){
-  $('#mensaje').hide();
-
-  $('#submit').click(function(){
-
-    var loginVals = {
-      "usuario":$('#usuario').val(),
-      "password":$('#password').val(),
-    };
-    if($('#usuario').val()==""){
-      $('#mensaje').show();
-    }else{
-      $.ajax({
-        type : "POST",
-        url:"operaciones/b_user.php",
-        data:loginVals,
-      }).done(function(resultado){
-			     location.href="./principal";
-		  });
-
-    }
-
-
-
-  });
-
-
-});
-
-document.getElementById("eye").addEventListener("click", function () {
-    if (pwShown == 0) {
-        pwShown = 1;
-        show();
-    } else {
-        pwShown = 0;
-        hide();
-    }
-}, false);
-</script>
-
-
-
-      
-    

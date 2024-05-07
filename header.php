@@ -1,6 +1,6 @@
 <?php
 session_start();
- 
+
 if (!isset($_SESSION['nombre']) && !isset($_SESSION['rol'])) {
   header('Location: ./');
   exit;
@@ -9,7 +9,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   header('Location: ./');
   exit;
   }
-  
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,17 +20,17 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALDP</title>
   <link rel="stylesheet" href="./lib/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+
   <link href="./tm/toastr.scss" rel="stylesheet" />
-  
+
   <style>
     body {
       background: #EAEAEA;
       color: #514d51;
-      font-size: small;  
+      font-size: small;
     }
 
     .container {
@@ -43,7 +43,7 @@ if ($_SESSION['rol'] != "ADMINISTRADOR") {
       border: none;
       border-radius: 0;
       color: #110b12;
-    }    
+    }
 
     .btn-primary {
       background-color: #007bff;

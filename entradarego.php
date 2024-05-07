@@ -11,7 +11,6 @@
     <div id="formulario" style="display:block">
       <form id="registrarentrada" method="post" enctype="multipart/form-data">
         <div class="form-row">
-
           <div class="col">
             <div class="form-group">
               <label for="grupo">GRUPO</label>
@@ -125,9 +124,9 @@
     </div>
   </div>
   <script src="./lib/jquery.min.js"></script>
-  <script src="./lib/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  <script src="./lib/popper.min.js" >
   </script>
-  <script src="./lib/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  <script src="./lib/bootstrap.min.js" >
   </script>
   <script src="./tm/toastr.js"></script>
   <script>
@@ -151,6 +150,7 @@
       }
     });
   </script>
+
 
   <script>
     $(function() {

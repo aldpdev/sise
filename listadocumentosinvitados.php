@@ -2,6 +2,25 @@
 include_once("./enlace.php");
 ?>
 
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALDP</title>
+  <link rel="stylesheet" href="./lib/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="./tm/toastr.scss" rel="stylesheet" />
+  <style>
+    body {
+      background: #EAEAEA;
+      color: #fff;
+    }
+  </style>
+</head>
+
 <body>
   <?php include_once('menu.php'); ?>
   <h2 class="text-center">LISTA DE DOCUMENTOS</h2>
@@ -43,7 +62,7 @@ include_once("./enlace.php");
               <td style="background-color:#fff;color:#000">' . $numero . '</td>
               <td>' . $row['hoja_controlentrada'] . '</td>
               <td>' . $row['categoria_controlentrada'] . '</td>
-              <td>' . $row['numdoc_controlentrada'] . '</td>            
+              <td>' . $row['numdoc_controlentrada'] . '</td>
               <td>' . $row['gestion_controlentrada'] . '</td>
               <td>' . $row['fechafecha_controlentrada'] . '</td>
               <td>' . $row['beneficiario_controlentrada'] . '</td>
@@ -74,7 +93,7 @@ include_once("./enlace.php");
           <tr>
             <th style="background-color:#fff;color:#000">Nro</th>
             <th style="background-color:#fff;color:#000">GRUPO</th>
-            <th style="background-color:#fff;color:#000">UNIDAD</th>            
+            <th style="background-color:#fff;color:#000">UNIDAD</th>
             <th style="background-color:#fff;color:#000">GESTION</th>
             <th style="background-color:#fff;color:#000">FECHA INGRESO</th>
             <th style="background-color:#fff;color:#000">FOJAS</th>
@@ -98,7 +117,7 @@ include_once("./enlace.php");
             if ($limite >= $actual) {
               $numero += 1;
               echo '<tr>
-              <td style="background-color:#fff;color:#000">' . $numero . '</td>    
+              <td style="background-color:#fff;color:#000">' . $numero . '</td>
               <td>' . $row['grupo_controlentradao'] . '</td>
               <td>' . $row['unidad_controlentradao'] . '</td>
               <td>' . $row['gestion_controlentradao'] . '</td>

@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-12">
             <table id="tablacompartidos"
-                class="table text-sm table-sm table-striped table-bordered table-condensed table-dark table-hover"
+                class="table text-sm table-sm table-striped table-bordered table-condensed table-secondary table-hover"
                 style="width:100%">
                 <thead class="text-center">
                     <tr>
@@ -54,10 +54,10 @@
 
     <script src="./lib/jquery.min.js"></script>
     <script src="./lib/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        >
     </script>
     <script src="./lib/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        >
     </script>
     <script type="text/javascript" src="./lib/datatables.min.js"></script>
     <script src="./tm/toastr.js"></script>

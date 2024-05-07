@@ -7,7 +7,7 @@ include_once("./enlace.php");
   <h2 class="text-center">DOCUMENTOS DE ENTRADA REGISTRADOS</h2>
 
   <div class="row">
-    <div class="table-responsive text-justify">
+    <div class="table table-responsive text-justify">
       <div class="col-lg-12 "  >
 
         <table id="tablaareas" class="table table-sm table-striped table-bordered table-condensed table-secondary table-hover" data-target="#grandparentContent" data-toggle="collapse" style="width:100%">

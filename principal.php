@@ -1,7 +1,5 @@
 <head>
-
-
-    <?php 
+    <?php
     include_once('header.php');
 
     ?>
@@ -16,14 +14,14 @@
 
     .contenedor {
         display: flex;
-        justify-content: center; 
+        justify-content: center;
         align-items: center;
         height: 100vh;
         perspective: 1000px;
     }
 
     .imagen-con-onda {
-        width: 60vh; 
+        width: 60vh;
         height: 60vh;
         background-image: url('./imagenes/logo.png');
         background-size: cover;
@@ -36,9 +34,9 @@
 
     .typing-text {
         font-family: Arial, sans-serif;
-        font-size:16px; 
-        text-align: center; 
-        margin-top: 20px; 
+        font-size:16px;
+        text-align: center;
+        margin-top: 20px;
     }
 
     @keyframes rotate-animation {
@@ -92,16 +90,16 @@
 
     @media only screen and (max-width: 768px) {
         .contenedor {
-            flex-direction: column; 
+            flex-direction: column;
         }
 
         .imagen-con-onda {
-            width: 80vw; 
+            width: 80vw;
             height: 80vw;
         }
 
         .typing-text {
-            font-size: 16px; 
+            font-size: 16px;
         }
     }
 </style>
@@ -128,13 +126,13 @@
             function restartAnimation() {
                 var elements = document.querySelectorAll('.row1, .row2, .row3');
                 elements.forEach(function(element) {
-                    element.style.animation = 'none'; 
-                    void element.offsetWidth; 
+                    element.style.animation = 'none';
+                    void element.offsetWidth;
                     element.style.animation = null;
                 });
             }
 
-            setInterval(restartAnimation, 6000); 
+            setInterval(restartAnimation, 6000);
         });
     </script>
 

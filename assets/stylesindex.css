@@ -1,0 +1,147 @@
+button {
+    border: none;
+    outline: none;
+  }
+  #eye{
+      position: absolute;
+      right: 0px;
+      top: 60%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      background: #fff;
+      color: #333;
+  }
+  /*#eye {
+    background: #fff;
+    color: #333;
+    margin: 5.9px 0 0 0;
+    margin-left: -20px;
+    padding: 15px 9px 19px 0px;
+    border-radius: 0px 5px 5px 0px;
+    
+    float: right;
+    position: relative;
+    right: 1%;
+    top: -.2%;
+    z-index: 5;
+      
+    cursor: pointer;
+  }*/
+  .container {
+    
+    transition: opacity 0.3s ease; /* Transición suave */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Ajusta la altura para que ocupe toda la altura de la pantalla */
+  }
+  .login {
+        opacity: 0.5; /* Definir opacidad inicial */
+        transition: opacity 0.3s; /* Transición suave */
+      }
+  
+      .login:hover {
+        opacity: 1; /* Cuando el mouse pasa sobre el contenedor, restaurar la opacidad completa */
+      }
+  
+  
+  
+  .login {
+    width: 100%; /* Ajusta el ancho del contenedor de inicio de sesión al 100% */
+  }
+  
+  .card-body {
+    text-align: center; /* Centra el contenido horizontalmente */
+  }
+  
+  .group {
+    display: inline-block; /* Hace que los elementos .group se comporten como bloques en línea */
+    margin: 0 auto; /* Centra los elementos .group horizontalmente dentro del contenedor */
+  }
+  
+        .group {
+    position: relative;
+    margin-bottom: 45px;
+  }
+  
+  .group input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+  }
+  
+  .group input:focus {
+    outline: none;
+  }
+  
+  .group label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+  
+  .group input:focus ~ label,
+  .group input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #5264AE;
+  }
+  
+  .group .bar {
+    position: relative;
+    display: block;
+    width: 300px;
+  }
+  
+  .group .bar:before,
+  .group .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+  
+  .group .bar:before {
+    left: 50%;
+  }
+  
+  .group .bar:after {
+    right: 50%;
+  }
+  
+  .group input:focus ~ .bar:before,
+  .group input:focus ~ .bar:after {
+    width: 50%;
+  }
+  
+  .group .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  .group input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+  }
+  

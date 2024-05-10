@@ -1,8 +1,7 @@
 <?php include_once('header.php');
 include_once("./enlace.php");
 ?>
-<<<<<<< HEAD
-<!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -21,8 +20,6 @@ include_once("./enlace.php");
     }
   </style>
 </head>
-=======
->>>>>>> 584bc83b5f0f7151375c34307486e53fd8637b16
 
 <body>
   <?php include_once('menu.php'); ?>
@@ -65,7 +62,7 @@ include_once("./enlace.php");
               <td style="background-color:#fff;color:#000">' . $numero . '</td>
               <td>' . $row['hoja_controlentrada'] . '</td>
               <td>' . $row['categoria_controlentrada'] . '</td>
-              <td>' . $row['numdoc_controlentrada'] . '</td>            
+              <td>' . $row['numdoc_controlentrada'] . '</td>
               <td>' . $row['gestion_controlentrada'] . '</td>
               <td>' . $row['fechafecha_controlentrada'] . '</td>
               <td>' . $row['beneficiario_controlentrada'] . '</td>
@@ -96,7 +93,7 @@ include_once("./enlace.php");
           <tr>
             <th style="background-color:#fff;color:#000">Nro</th>
             <th style="background-color:#fff;color:#000">GRUPO</th>
-            <th style="background-color:#fff;color:#000">UNIDAD</th>            
+            <th style="background-color:#fff;color:#000">UNIDAD</th>
             <th style="background-color:#fff;color:#000">GESTION</th>
             <th style="background-color:#fff;color:#000">FECHA INGRESO</th>
             <th style="background-color:#fff;color:#000">FOJAS</th>
@@ -120,7 +117,7 @@ include_once("./enlace.php");
             if ($limite >= $actual) {
               $numero += 1;
               echo '<tr>
-              <td style="background-color:#fff;color:#000">' . $numero . '</td>    
+              <td style="background-color:#fff;color:#000">' . $numero . '</td>
               <td>' . $row['grupo_controlentradao'] . '</td>
               <td>' . $row['unidad_controlentradao'] . '</td>
               <td>' . $row['gestion_controlentradao'] . '</td>

@@ -137,4 +137,182 @@ function DBUserInfo($user, $c=null,$hashpass=true) {
 	return $a;
 }
 
+
+//seleccion la todos los usuario de la base de datos si pasa sitio de ese
+function DBAllUserInfo() {
+
+	$sql = "select * from usertable where usertype!='admin'";
+
+	$sql .= "order by usernumber";
+	$c = DBConnect();
+	$r = DBExec ($c, $sql, "DBAllUserInfo(get users)");
+	$n = DBnlines($r);
+	if ($n == 0) {
+		LOGError("Unable to find users in the database. SQL=(" . $sql . ")");
+		MSGError("¡No se pueden encontrar usuarios en la base de datos!");
+	}
+
+	$a = array();
+	for ($i=0;$i<$n;$i++) {
+		$a[$i] = DBRow($r,$i);
+		$a[$i]['changepassword']=true;
+		$a[$i]['userfullname']=ucwords($a[$i]['userfullname']);
+		if(substr($a[$i]['userpassword'],0,1)=='!') {
+			$a[$i]['userpassword'] = substr($a[$i]['userpassword'],1);
+			$a[$i]['changepassword']=false;
+		}
+		$a[$i]['userpassword'] = myhash($a[$i]['userpassword'] . $a[$i]['usersessionextra']);
+	}
+	return $a;
+}
+
+//funcion para actulizar o insertar un nuevo usuario segun los datos que pasa
+//actualizado1
+function DBNewUser($param, $c=null, $import=false){
+
+  //if(isset($param['contestnumber']) && !isset($param['contest'])) $param['contest']=$param['contestnumber'];
+	//if(isset($param['sitenumber']) && !isset($param['site'])) $param['site']=$param['sitenumber'];
+	//if(isset($param['usersitenumber']) && !isset($param['site'])) $param['site']=$param['usersitenumber'];
+	if(isset($param['usernumber']) && !isset($param['user'])) $param['user']=$param['usernumber'];
+	if(isset($param['number']) && !isset($param['user'])) $param['user']=$param['number'];
+
+	if(isset($param['userpassword']) && !isset($param['pass'])) $param['pass']=$param['userpassword'];
+	if(isset($param['userenabled']) && !isset($param['enabled'])) $param['enabled']=$param['userenabled'];
+	if(isset($param['usermultilogin']) && !isset($param['multilogin'])) $param['multilogin']=$param['usermultilogin'];
+	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
+	if(isset($param['userfullname']) && !isset($param['userfull'])) $param['userfull']=$param['userfullname'];
+	if(isset($param['usertype']) && !isset($param['type'])) $param['type']=$param['usertype'];
+	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
+	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
+
+	$ac=array('user');
+	//$ac=array('contest','site','user');
+	$ac1=array('updatetime','userci','username','userfull','userdesc','type','enabled','multilogin','pass','permitip','changepass',
+			   'userip','userlastlogin','userlastlogout','usersession','usersessionextra');
+
+	//$typei['contest']=1;
+	$typei['updatetime']=1;
+	//$typei['site']=1;
+	$typei['user']=1;
+	foreach($ac as $key) {
+		if(!isset($param[$key]) || $param[$key]=="") {
+			MSGError("DBNewUser param error: $key not found");
+			return false;
+		}
+		if(isset($typei[$key]) && !is_numeric($param[$key])) {
+			MSGError("DBNewUser param error: $key is not numeric");
+			return false;
+		}
+		$$key = myhtmlspecialchars($param[$key]);
+	}
+	$userci=0;
+	$username= "team" . $user;
+	$updatetime=-1;
+	$pass = null;
+
+	$userfull='';
+	$userdesc='';
+	$type='secretary';
+	$enabled=0;
+	$changepass=0;
+	$multilogin=0;
+	$permitip='';
+	$usersession=null;
+	$usersessionextra=null;
+	$userip=null;
+	$userlastlogin=null;
+	$userlastlogout=null;
+	foreach($ac1 as $key) {
+		if(isset($param[$key])) {
+			$$key = myhtmlspecialchars($param[$key]);
+			if(isset($typei[$key]) && !is_numeric($param[$key])) {
+				MSGError("DBNewUser param error: $key is not numeric");
+				return false;
+			}
+		}
+	}
+	$t = time();
+	if($updatetime <= 0)
+		$updatetime=$t;
+
+	if ($type != "admin")
+		$type = "secretary";
+	if ($type == "admin") $changepass = 0;
+	if ($enabled != 0) $enabled = 0;
+	if ($multilogin != 1) $multilogin = 0;
+	if ($changepass != 1) $changepass = 0;
+	$userfull=strtolower($userfull);
+	$cw = false;
+	if($c == null) {
+		$cw = true;
+		$c = DBConnect();
+		DBExec($c, "begin work", "DBNewUser(begin)");
+	}
+	DBExec($c, "lock table usertable", "DBNewUser(lock)");
+
+	if($pass != myhash("") && $type != "admin" && $changepass != "t" && substr($pass,0,1) != "!") $pass='!'.$pass;
+	$r = DBExec($c, "select * from usertable where (username='$username') and usernumber!=$user", "DBNewUser(get user)");
+
+	$n = DBnlines ($r);
+	$ret=1;
+
+	if ($n == 0) {
+
+		$sql = "select * from usertable where usernumber=$user";
+		$a = DBGetRow ($sql, 0, $c);
+        //para insercion o actulizacion
+		if ($a == null) {
+			  	$ret=2;
+
+    		 	$sql = "insert into usertable (usernumber, userci, username, userfullname, " .
+    				"userdesc, usertype, userenabled, usermultilogin, userpassword, userpermitip) values " .
+    				"($user, $userci,'$username', '$userfull', '$userdesc', '$type', '$enabled', " .
+    				"'$multilogin', '$pass', '$permitip')";
+    			DBExec ($c, $sql, "DBNewUser(insert)");
+					if($type=='admission'){
+						DBExec($c, "insert into specialtytable (userid, clinicalid, coursenumber) values ".
+								"($user,1,3)","DBFakeUser(insert specialty)");
+					}
+					if($cw) {
+    				DBExec ($c, "commit work");
+    			}
+    			LOGLevel ("Usuario $user registrado.",2);
+		} else {
+			if($updatetime > $a['updatetime']) {
+				$ret=2;
+				$sql = "update usertable set userci=$userci, username='$username', userdesc='$userdesc', updatetime=$updatetime, " .
+					"userfullname='$userfull', usertype='$type', userpermitip='$permitip', ";
+
+                //if($useremail!='') $sql .= "useremail='$useremail', ";
+                if($pass != null && $pass != myhash("")) $sql .= "userpassword='$pass', ";
+				if($usersession != null) $sql .= "usersession='$usersession', ";
+				if($usersessionextra != null) $sql .= "usersessionextra='$usersessionextra', ";
+				if($userip != null) $sql .= "userip='$userip', ";
+				if($userlastlogin != null) $sql .= "userlastlogin='$userlastlogin', ";
+				if($userlastlogout != null) $sql .= "userlastlogout='$userlastlogout', ";
+				$sql .= "userenabled='$enabled', usermultilogin='$multilogin'";
+				$sql .=	" where usernumber=$user";
+				$r = DBExec ($c, $sql, "DBNewUser(update)");
+				if($cw) {
+					DBExec ($c, "commit work");
+				}
+				LOGLevel("Usuario $user actualizado.",2);
+			}
+		}
+	} else {
+	  if($cw)
+	     DBExec ($c, "rollback work");
+	  LOGLevel ("Problema de actualizacion para el usuario  $user (tal vez el nombre de usuario ya esté en uso).",1);
+//Problema de actualización para el usuario $ usuario, sitio $ sitio (tal vez el nombre de usuario ya esté en uso).
+      MSGError ("Problema de actualizacion para el usuario  $user, (tal vez el nombre de usuario ya esté en uso).");
+		if($import){
+			$a= DBRow($r,0);
+			return $a['usernumber'];
+		}else{
+			return false;
+		}
+	}
+	if($cw) DBExec($c, "commit work");
+	return $ret;
+}
 ?>

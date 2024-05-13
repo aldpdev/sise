@@ -49,7 +49,7 @@ ob_end_flush();
     <title>ALDP - Login</title>
     
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/stylesindex.css">
+    <link rel="stylesheet" href="./assets/css/stylesindex.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script language="JavaScript" src="sha256.js"></script>
     <script language="JavaScript">

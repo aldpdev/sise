@@ -22,35 +22,35 @@ $usr = DBAllUserInfo();
             <div class="mb-3 row">
                 <!--<label for="usernumber" class="col-sm-4 col-form-label">Usuario Id:</label>-->
                 <div class="col-sm-8">
-                    <input type="hidden" name="usernumber" id="usernumber" class="form-control" value="" maxlength="20" />
+                    <input type="hidden" name="usernumber_r" id="usernumber_r" class="form-control" value="" maxlength="20" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="userci" class="col-sm-4 col-form-label">Usuario CI:</label>
+                <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
                 <div class="col-sm-8">
-                    <input type="text" name="userci" id="userci" class="form-control" value="" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                    <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="username" class="col-sm-4 col-form-label">Usuario Nombre:</label>
+                <label for="username_r" class="col-sm-4 col-form-label">Usuario Nombre:</label>
                 <div class="col-sm-8">
-                    <input type="text" name="username" id="username" class="form-control" value="" maxlength="20" />
+                    <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
                 </div>
             </div>
             <!--ICPC ID-->
             <div class="mb-3 row">
                 <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
                 <div class="col-sm-4">
-                  <select name="usertype" class="form-select" aria-label="Default select example">
-                		<option value="admin">Administrador</option>
-                		<option value="secretary">Secretary</option>
+                  <select name="usertype_r" class="form-select" aria-label="Default select example">
+                    <option value="secretary">Secretary</option>
+                    <option value="admin">Administrador</option>
                 	</select>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="" class="col-sm-4 col-form-label">Activo:</label>
                 <div class="col-sm-2">
-                <select name="userenabled" class="form-select" aria-label="Default select example">
+                <select name="userenabled_r" class="form-select" aria-label="Default select example">
             		  <option value="t">Yes</option>
             		  <option value="f">No</option>
             		</select>
@@ -60,57 +60,57 @@ $usr = DBAllUserInfo();
             <div class="mb-3 row">
                 <label for="" class="col-sm-4 col-form-label">MultiLogins (Loguearse multiples Veces):</label>
                 <div class="col-sm-2">
-                    <select name="usermultilogin" class="form-select" aria-label="Default select example">
-            		<option value="t">Yes</option>
-            		<option value="f">No</option>
-            		</select>
+                    <select name="usermultilogin_r" class="form-select" aria-label="Default select example">
+            		      <option value="t">Yes</option>
+            		      <option value="f">No</option>
+            		    </select>
               </div>
             </div>
             <div class="mb-3 row">
-                <label for="userfullname" class="col-sm-4 col-form-label">Nombre Completo del Usuario:</label>
+                <label for="userfullname_r" class="col-sm-4 col-form-label">Nombre Completo del Usuario:</label>
                 <div class="col-sm-8">
-                    <input type="text" name="userfullname" id="userfullname" class="form-control" value="" maxlength="200" />
+                    <input type="text" name="userfullname_r" id="userfullname_r" class="form-control" value="" maxlength="200" />
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <label for="userdesc" class="col-sm-4 col-form-label">Descripcion Usuario:</label>
+                <label for="userdesc_r" class="col-sm-4 col-form-label">Descripcion Usuario:</label>
                 <div class="col-sm-8">
-                    <input type="text" name="userdesc" id="userdesc" class="form-control" value="" maxlength="300" />
+                    <input type="text" name="userdesc_r" id="userdesc_r" class="form-control" value="" maxlength="300" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="userip" class="col-sm-4 col-form-label">IP Usuario:</label>
+                <label for="userip_r" class="col-sm-4 col-form-label">IP Usuario:</label>
                 <div class="col-sm-8">
-                    <input type="text" name="userip" id="userip" class="form-control" value="" size="20" maxlength="20" />
+                    <input type="text" name="userip_r" id="userip_r" class="form-control" value="" size="20" maxlength="20" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="passwordn1" class="col-sm-4 col-form-label">Contraseña:</label>
+                <label for="passn1" class="col-sm-4 col-form-label">Contraseña:</label>
                 <div class="col-sm-8">
-                    <input type="password" name="passwordn1" id="passwordn1" class="form-control" value="" size="20" maxlength="200" />
+                    <input type="password" name="passn1" id="passn1" class="form-control" value="" size="20" maxlength="200" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="passwordn2" class="col-sm-4 col-form-label">Repitir Contraseña:</label>
+                <label for="passn2" class="col-sm-4 col-form-label">Repitir Contraseña:</label>
                 <div class="col-sm-8">
-                    <input type="password" name="passwordn2" id="passwordn2" class="form-control" value="" size="20" maxlength="200" />
+                    <input type="password" name="passn2" id="passn2" class="form-control" value="" size="20" maxlength="200" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="" class="col-sm-4 col-form-label">Permitir cambio de Contraseña:</label>
                 <div class="col-sm-2">
-                  <select name="changepass" class="form-select" aria-label="Default select example">
+                  <select name="changepass_r" class="form-select" aria-label="Default select example">
             		      <option value="t">Yes</option>
             		      <option value="f">No</option>
             		  </select>
               </div>
             </div>
             <div class="mb-3 row">
-                <label for="passwordo" class="col-sm-4 col-form-label">Contraseña del admin:</label>
+                <label for="passo" class="col-sm-4 col-form-label">Contraseña del admin:</label>
                 <div class="col-sm-8">
-                    <input type="password" name="passwordo" id="passwordo" class="form-control" value="" size="20" maxlength="200" />
-              </div>
+                    <input type="password" name="passo" id="passo" class="form-control" value="" size="20" maxlength="200"/>
+                </div>
             </div>
 
         </div>
@@ -248,19 +248,6 @@ $usr = DBAllUserInfo();
 <?php
 require('footer.php');
 ?>
-<script language="JavaScript" src="../sha256.js"></script>
-<script language="JavaScript" src="../hex.js"></script>
-<script language="JavaScript">
-function computeHASH()
-{
-	document.passwordn1.value = bighexsoma(js_myhash(document.passwordn1.value),js_myhash(document.passwordo.value));
-	document.passwordn2.value = bighexsoma(js_myhash(document.passwordn2.value),js_myhash(document.passwordo.value));
-	document.passwordo.value = js_myhash(js_myhash(document.passwordo.value)+'<?php echo session_id(); ?>');
-//	document.form3.passwordn1.value = js_myhash(document.form3.passwordn1.value);
-//	document.form3.passwordn2.value = js_myhash(document.form3.passwordn2.value);
-}
-</script>
-
 <script>
 $(document).ready(function () {
   //$("#form3").submit(function(){
@@ -275,26 +262,27 @@ $(document).ready(function () {
   //});
   $('#register_button').click(function(){
     //computeHASH();
-    var passwordn1 = $('#passwordn1').val();
-    var passwordn2 = $('#passwordn2').val();
-    var passwordo = $('#passwordo').val();
+    var passwordn1 = $('#passn1').val();
+    var passwordn2 = $('#passn2').val();
+    var passwordo = $('#passo').val();
+
     passwordn1 = bighexsoma(js_myhash(passwordn1),js_myhash(passwordn1));
     passwordn2 = bighexsoma(js_myhash(passwordn2),js_myhash(passwordn2));
-  	passwordo = js_myhash(js_myhash(passwordo)+'<?php echo session_id(); ?>');
 
+    passwordo = js_myhash(js_myhash(passwordo)+'<?php echo session_id(); ?>');
     var formData = {
-            usernumber: $('#usernumber').val(),
-            userci: $('#userci').val(),
-            username: $('#username').val(),
-            usertype: $('select[name=usertype]').val(),
-            userenabled: $('select[name=userenabled]').val(),
-            usermultilogin: $('select[name=usermultilogin]').val(),
-            userfullname: $('#userfullname').val(),
-            userdesc: $('#userdesc').val(),
-            userip: $('#userip').val(),
+            usernumber: $('#usernumber_r').val(),
+            userci: $('#userci_r').val(),
+            username: $('#username_r').val(),
+            usertype: $('select[name=usertype_r]').val(),
+            userenabled: $('select[name=userenabled_r]').val(),
+            usermultilogin: $('select[name=usermultilogin_r]').val(),
+            userfullname: $('#userfullname_r').val(),
+            userdesc: $('#userdesc_r').val(),
+            userip: $('#userip_r').val(),
             passwordn1: passwordn1,
             passwordn2: passwordn2,
-            changepass: $('select[name=changepass]').val(),
+            changepass: $('select[name=changepass_r]').val(),
             passwordo: passwordo
         };
 

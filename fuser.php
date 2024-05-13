@@ -151,10 +151,10 @@ function DBAllUserInfo() {
 		LOGError("Unable to find users in the database. SQL=(" . $sql . ")");
 		MSGError("¡No se pueden encontrar usuarios en la base de datos!");
 	}
-
 	$a = array();
+	$a = DBAllRow($r);
 	for ($i=0;$i<$n;$i++) {
-		$a[$i] = DBRow($r,$i);
+
 		$a[$i]['changepassword']=true;
 		$a[$i]['userfullname']=ucwords($a[$i]['userfullname']);
 		if(substr($a[$i]['userpassword'],0,1)=='!') {
@@ -163,6 +163,7 @@ function DBAllUserInfo() {
 		}
 		$a[$i]['userpassword'] = myhash($a[$i]['userpassword'] . $a[$i]['usersessionextra']);
 	}
+
 	return $a;
 }
 
@@ -182,7 +183,6 @@ function DBNewUser($param, $c=null, $import=false){
 	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
 	if(isset($param['userfullname']) && !isset($param['userfull'])) $param['userfull']=$param['userfullname'];
 	if(isset($param['usertype']) && !isset($param['type'])) $param['type']=$param['usertype'];
-	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
 	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
 
 	$ac=array('user');
@@ -238,7 +238,7 @@ function DBNewUser($param, $c=null, $import=false){
 	if ($type != "admin")
 		$type = "secretary";
 	if ($type == "admin") $changepass = 0;
-	if ($enabled != 0) $enabled = 0;
+	if ($enabled != 1) $enabled = 0;
 	if ($multilogin != 1) $multilogin = 0;
 	if ($changepass != 1) $changepass = 0;
 	$userfull=strtolower($userfull);
@@ -248,14 +248,12 @@ function DBNewUser($param, $c=null, $import=false){
 		$c = DBConnect();
 		DBExec($c, "begin work", "DBNewUser(begin)");
 	}
-	DBExec($c, "lock table usertable", "DBNewUser(lock)");
 
 	if($pass != myhash("") && $type != "admin" && $changepass != "t" && substr($pass,0,1) != "!") $pass='!'.$pass;
-	$r = DBExec($c, "select * from usertable where (username='$username') and usernumber!=$user", "DBNewUser(get user)");
+	$r = DBExec($c, "select * from usertable where username='$username' and usernumber!=$user", "DBNewUser(get user)");
 
 	$n = DBnlines ($r);
 	$ret=1;
-
 	if ($n == 0) {
 
 		$sql = "select * from usertable where usernumber=$user";
@@ -263,16 +261,12 @@ function DBNewUser($param, $c=null, $import=false){
         //para insercion o actulizacion
 		if ($a == null) {
 			  	$ret=2;
-
-    		 	$sql = "insert into usertable (usernumber, userci, username, userfullname, " .
+					$sql = "insert into usertable (userci, username, userfullname, " .
     				"userdesc, usertype, userenabled, usermultilogin, userpassword, userpermitip) values " .
-    				"($user, $userci,'$username', '$userfull', '$userdesc', '$type', '$enabled', " .
-    				"'$multilogin', '$pass', '$permitip')";
+    				"('$userci','$username', '$userfull', '$userdesc', '$type', $enabled, " .
+    				"$multilogin, '$pass', '$permitip')";
     			DBExec ($c, $sql, "DBNewUser(insert)");
-					if($type=='admission'){
-						DBExec($c, "insert into specialtytable (userid, clinicalid, coursenumber) values ".
-								"($user,1,3)","DBFakeUser(insert specialty)");
-					}
+
 					if($cw) {
     				DBExec ($c, "commit work");
     			}
@@ -280,7 +274,7 @@ function DBNewUser($param, $c=null, $import=false){
 		} else {
 			if($updatetime > $a['updatetime']) {
 				$ret=2;
-				$sql = "update usertable set userci=$userci, username='$username', userdesc='$userdesc', updatetime=$updatetime, " .
+				/*$sql = "update usertable set userci=$userci, username='$username', userdesc='$userdesc', updatetime=$updatetime, " .
 					"userfullname='$userfull', usertype='$type', userpermitip='$permitip', ";
 
                 //if($useremail!='') $sql .= "useremail='$useremail', ";
@@ -296,7 +290,7 @@ function DBNewUser($param, $c=null, $import=false){
 				if($cw) {
 					DBExec ($c, "commit work");
 				}
-				LOGLevel("Usuario $user actualizado.",2);
+				LOGLevel("Usuario $user actualizado.",2);*/
 			}
 		}
 	} else {

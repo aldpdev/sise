@@ -206,8 +206,20 @@ function DBRow ($r, $i) {
 			$c++;
 	}
 	// Liberar el conjunto de resultados
-	mysqli_free_result($r);
+	//mysqli_free_result($r);
 	return $row;
+}
+function DBAllRow ($r) {
+	$c = 0; // Contador de filas
+	$row=null;
+	$a = array();
+	while ($row = mysqli_fetch_assoc($r)) {
+			$a[$c]=$row;
+			$c++;
+	}
+	// Liberar el conjunto de resultados
+	mysqli_free_result($r);
+	return $a;
 }
 //hacer la consulta y obtener una fila de la consulta en formato de matriz
 //$sql es la consulta sql

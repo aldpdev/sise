@@ -3,7 +3,7 @@
     <footer class="py-4 bg-light mt-auto">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">ALDP &copy; ASAMBLEA DEPARTAMENTAL DE POSOTÍ 2024-2024</div>
+                <div class="text-muted">ALDP &copy; ASAMBLEA DEPARTAMENTAL DE POTOSÍ 2024-2024</div>
                 <div>
                     <a href="#">Politicas de Privacidad</a>
                     &middot;

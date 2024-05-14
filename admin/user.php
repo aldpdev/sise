@@ -29,6 +29,7 @@ $usr = DBAllUserInfo();
                 <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
                 <div class="col-sm-8">
                     <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                    <div id="error-userci_r" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -37,6 +38,7 @@ $usr = DBAllUserInfo();
                     <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
                 </div>
             </div>
+            
             <!--ICPC ID-->
             <div class="mb-3 row">
                 <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
@@ -70,6 +72,7 @@ $usr = DBAllUserInfo();
                 <label for="userfullname_r" class="col-sm-4 col-form-label">Nombre Completo del Usuario:</label>
                 <div class="col-sm-8">
                     <input type="text" name="userfullname_r" id="userfullname_r" class="form-control" value="" maxlength="200" />
+                    <div id="error-userfullname_r" class="invalid-feedback"></div>
                 </div>
             </div>
 
@@ -262,42 +265,73 @@ $(document).ready(function () {
   //});
   $('#register_button').click(function(){
     //computeHASH();
-    var passwordn1 = $('#passn1').val();
-    var passwordn2 = $('#passn2').val();
-    var passwordo = $('#passo').val();
 
-    passwordn1 = bighexsoma(js_myhash(passwordn1),js_myhash(passwordn1));
-    passwordn2 = bighexsoma(js_myhash(passwordn2),js_myhash(passwordn2));
+    //verificar los datos si estan llenado
+    
+    /*if(verificardatos()==false)
+     exit;*/
+    var userci_r = $('#userci_r').val();
+    var userfullname_r = $('#userfullname_r').val();
+    
+    if (userci_r.trim() === '' || userfullname_r.trim() === '' ) {
+      if (cadena1.trim() === '') {
+      $('#userci_r').addClass('is-invalid');
+      $('#error-userci_r').text('ERROR: Este campo es obligatorio')
+      } 
+      else {
+      $('#userci_r').removeClass('is-invalid');
+      $('#error-userci_r').text('');
+      }
+      if (userfullname_r.trim() === '') {
+      $('#userfullname_r').addClass('is-invalid');
+      $('#error-userfullname_r').text('ERROR: Este campo es obligatorio');
+      } 
+      else{
+      $('#userfullname_r').removeClass('is-invalid');
+      $('#error-userfullname_r').text('');
+      }
+    } 
+    else
+    {
+      var passwordn1 = $('#passn1').val();
+      var passwordn2 = $('#passn2').val();
+      var passwordo = $('#passo').val();
 
-    passwordo = js_myhash(js_myhash(passwordo)+'<?php echo session_id(); ?>');
-    var formData = {
-            usernumber: $('#usernumber_r').val(),
-            userci: $('#userci_r').val(),
-            username: $('#username_r').val(),
-            usertype: $('select[name=usertype_r]').val(),
-            userenabled: $('select[name=userenabled_r]').val(),
-            usermultilogin: $('select[name=usermultilogin_r]').val(),
-            userfullname: $('#userfullname_r').val(),
-            userdesc: $('#userdesc_r').val(),
-            userip: $('#userip_r').val(),
-            passwordn1: passwordn1,
-            passwordn2: passwordn2,
-            changepass: $('select[name=changepass_r]').val(),
-            passwordo: passwordo
-        };
+      passwordn1 = bighexsoma(js_myhash(passwordn1),js_myhash(passwordn1));
+      passwordn2 = bighexsoma(js_myhash(passwordn2),js_myhash(passwordn2));
 
-    $.ajax({
-            type: "POST",  // o "GET", dependiendo del método que necesites
-            url: "../operaciones/registeruser.php",  // URL a la que enviar los datos
-            data: formData,
-            success: function(response) {
-                alert(response);
-                // Aquí puedes manejar la respuesta del servidor
-            },
-            error: function() {
-                alert("Error en la petición AJAX");
-            }
-    });
+      passwordo = js_myhash(js_myhash(passwordo)+'<?php echo session_id(); ?>');
+      var formData = {
+              usernumber: $('#usernumber_r').val(),
+              userci: $('#userci_r').val(),
+              username: $('#username_r').val(),
+              usertype: $('select[name=usertype_r]').val(),
+              userenabled: $('select[name=userenabled_r]').val(),
+              usermultilogin: $('select[name=usermultilogin_r]').val(),
+              userfullname: $('#userfullname_r').val(),
+              userdesc: $('#userdesc_r').val(),
+              userip: $('#userip_r').val(),
+              passwordn1: passwordn1,
+              passwordn2: passwordn2,
+              changepass: $('select[name=changepass_r]').val(),
+              passwordo: passwordo
+          };
+
+      $.ajax({
+              type: "POST",  // o "GET", dependiendo del método que necesites
+              url: "../operaciones/registeruser.php",  // URL a la que enviar los datos
+              data: formData,
+              success: function(response) {
+                  alert(response);
+                  // Aquí puedes manejar la respuesta del servidor
+              },
+              error: function() {
+                  alert("Error en la petición AJAX");
+              }
+      });
+    }
+  
+      
     //alert('test: '+passw+' pass1: '+passwordn1+'pass2: '+passwordn2+'passo: '+passwordo);
 
     /*if (confirm("Confirmar Registro?")){

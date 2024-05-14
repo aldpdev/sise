@@ -7,7 +7,7 @@ if(is_readable('../db.php')) {
   echo "no encontrado archivo db.php";
   exit;
 }
-if (getIP()!="UNKNOWN" || php_sapi_name()!=="cli") exit;
+/*if (getIP()!="UNKNOWN" || php_sapi_name()!=="cli") exit;
 ini_set('memory_limit','600M');
 ini_set('output_buffering','off');
 ini_set('implicit_flush','on');
@@ -22,7 +22,7 @@ echo "\n***** YOU WILL LOSE WHATEVER YOU HAVE THERE!!! *****";
 echo "\nType YES and press return to continue or anything else will abort it: ";
 $resp = strtoupper(trim(fgets(STDIN)));
 if($resp != 'YES') exit;
-
+*/
 
 
 echo "\ndropping database\n";

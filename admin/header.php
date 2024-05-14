@@ -62,10 +62,10 @@ require_once('../db.php');
             <a class="navbar-brand" href="index.php">ALDP</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">
+                <a class="nav-link" aria-current="page" href="reception.php">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
                       <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z" />
-                  </svg> Documentacion
+                  </svg> Nuevo documento
                 </a>
               </li>
               <li class="nav-item">

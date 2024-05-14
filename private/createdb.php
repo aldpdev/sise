@@ -33,9 +33,9 @@ DBCreateDatabase();
 echo "creating tables\n";
 DBCreateUserTable();
 DBCreateLogTable();
-/*
-DBCreateLogTable();
-*/
+DBCreateSenderTable();
+DBCreateDocumentTable();
+DBCreateDocumenthistoryTable();
 echo "creating initial fake admin\n";
 DBFakeUser();
 ?>

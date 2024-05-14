@@ -302,7 +302,7 @@ function DBcrc($id, $c=null) {
 
 require_once('flog.php');
 require_once('fuser.php');
-#require_once('fpatient.php');
+require_once('fdocument.php');
 #require_once('fsurgery.php');
 #require_once('fpediatrics.php');
 #require_once('fprosthodontics.php');

@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Lista de documentos</title>
-    <style>
-        .center {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+<?php require ('header.php');
+
+?>
+
 <div class="container">
     <h1 class="mt-5 mb-3 center">Lista de documentos</h1>
     <table class="table">
@@ -43,5 +33,7 @@
       </tbody>
     </table>
 </div>
-</body>
+<?php
+require ('footer.php');
+?>
 </html>

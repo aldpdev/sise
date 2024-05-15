@@ -29,13 +29,13 @@ $usr = DBAllUserInfo();
                 <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
                 <div class="col-sm-8">
                     <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
-                    <div id="error-userci_r" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="username_r" class="col-sm-4 col-form-label">Usuario Nombre:</label>
                 <div class="col-sm-8">
                     <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
+                    <div id="error-username_r" class="invalid-feedback"></div>
                 </div>
             </div>
             
@@ -270,17 +270,18 @@ $(document).ready(function () {
     
     /*if(verificardatos()==false)
      exit;*/
-    var userci_r = $('#userci_r').val();
+    var username_r = $('#username_r').val();
     var userfullname_r = $('#userfullname_r').val();
     
-    if (userci_r.trim() === '' || userfullname_r.trim() === '' ) {
-      if (cadena1.trim() === '') {
-      $('#userci_r').addClass('is-invalid');
-      $('#error-userci_r').text('ERROR: Este campo es obligatorio')
+    if (username_r.trim() === '' || userfullname_r.trim() === '' ) {
+      
+      if (username_r.trim() === '') {
+      $('#username_r').addClass('is-invalid');
+      $('#error-username_r').text('ERROR: Este campo es obligatorio');
       } 
-      else {
-      $('#userci_r').removeClass('is-invalid');
-      $('#error-userci_r').text('');
+      else{
+      $('#username_r').removeClass('is-invalid');
+      $('#error-username_r').text('');
       }
       if (userfullname_r.trim() === '') {
       $('#userfullname_r').addClass('is-invalid');
@@ -290,6 +291,17 @@ $(document).ready(function () {
       $('#userfullname_r').removeClass('is-invalid');
       $('#error-userfullname_r').text('');
       }
+
+      $('#username_r, #userfullname_r').on('input', function() {
+    // Verificar si el campo está vacío y actuar en consecuencia
+    if ($(this).val().trim() === '') {
+        $(this).addClass('is-invalid');
+        $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
+    } else {
+        $(this).removeClass('is-invalid');
+        $(this).next('.error-message').text('');
+    }
+});
     } 
     else
     {

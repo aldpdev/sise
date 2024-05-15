@@ -16,7 +16,7 @@ require('header.php');
     .imagen-con-onda {
         width: 60vh;
         height: 60vh;
-        background-image: url('./imagenes/potos2.jpg');
+        background-image: url('../imagenes/logo.png');
         background-size: cover;
         border-radius: 10px;
         overflow: hidden;

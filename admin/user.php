@@ -342,23 +342,8 @@ require ('footer.php');
 ?>
 <script>
   $(document).ready(function () {
-    //$("#form3").submit(function(){
-    /*computeHASH();
-    alert('GROVER FONRI');
-    if (confirm("Confirmar Registro?")){
-        alert('GROVER FONRI');
-    }*/
 
-
-    //  alert('FABIAN SIERRA');
-    //});
-    $('#register_button').click(function () {
-      //computeHASH();
-
-      //verificar los datos si estan llenado
-
-      /*if(verificardatos()==false)
-       exit;*/
+  $('#register_button').click(function(){
       var username_r = $('#username_r').val();
       var userfullname_r = $('#userfullname_r').val();
 
@@ -417,9 +402,6 @@ require ('footer.php');
           passwordo: passwordo
         };
 
-
-
-
         $.ajax({
           type: "POST",  // o "GET", dependiendo del método que necesites
           url: "../operaciones/registeruser.php",  // URL a la que enviar los datos
@@ -439,15 +421,17 @@ require ('footer.php');
         });
       }
 
-
-      //alert('test: '+passw+' pass1: '+passwordn1+'pass2: '+passwordn2+'passo: '+passwordo);
-
-      /*if (confirm("Confirmar Registro?")){
-          alert('GROVER FONRI');
-      }
-      alert('GROVER FONRI');*/
+      $('#username_r, #userfullname_r').on('input', function() {
+        // Verificar si el campo está vacío y actuar en consecuencia
+        if ($(this).val().trim() === '') {
+            $(this).addClass('is-invalid');
+            $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).next('.error-message').text('');
+        }
+      });
     });
-
 
   });
 </script>

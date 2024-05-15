@@ -264,12 +264,6 @@ $(document).ready(function () {
   //  alert('FABIAN SIERRA');
   //});
   $('#register_button').click(function(){
-    //computeHASH();
-
-    //verificar los datos si estan llenado
-
-    /*if(verificardatos()==false)
-     exit;*/
     var username_r = $('#username_r').val();
     var userfullname_r = $('#userfullname_r').val();
 

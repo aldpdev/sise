@@ -3,13 +3,10 @@ require ('header.php');
 ?>
 <div class="container-fluid px-4">
   <div class="container">
+
     <h3 class="text-center">Asamblea departamental de POTOSÍ</h3>
 
-    <div id="carga" class="text-center" style="display:none;">
-      <img src="./imagenes/cargando.gif" />
-    </div>
     <div id="formulario" style="display:block">
-      <form id="registrarentrada" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="col">
             <div class="form-group ">
@@ -66,23 +63,22 @@ require ('header.php');
         </div>
         <div class="form-row mb-3">
           <div class="col d-flex justify-content-center">
-            <button type="button" class="btn btn-primary btn-block" id="registrar">Registrar</button>
+            <button type="button" class="btn btn-primary btn-block" id="registerdocument_button">Registrar</button>
           </div>
         </div>
-
-      </form>
+      </div>
 
     </div>
   </div>
 </div>
+
 <?php
   require ('footer.php');
 ?>
 
 <script>
 $(document).ready(function () {
-    $('#registrar').click(function(){
-
+    $('#registerdocument_button').click(function(){
       var origen = $('#origen').val();
       var destinatario = $('#destinatario').val();
       var instruccion = $('#instruccion').val();
@@ -137,11 +133,37 @@ $(document).ready(function () {
               $(this).next('.error-message').text('');
           }
         });
-      }
-      else
-      {
-        alert("siuuuu");
+      }else{
+        var archivo = $('#archivo')[0].files[0];
+        var formData = new FormData();
+        formData.append('origen', $('#origen').val());
+        formData.append('destinatario', $('#destinatario').val());
+        formData.append('instruccion', $('#instruccion').val());
+        formData.append('asunto', $('#asunto').val());
+        formData.append('descripcion', $('#descripcion').val());
+        formData.append('nhojas', $('#nhojas').val());
+        formData.append('archivo', archivo);
+        $.ajax({
+                type: "POST",  // o "GET", dependiendo del método que necesites
+                url: "../operaciones/registerdocument.php",  // URL a la que enviar los datos
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert(response);
+                    // Aquí puedes manejar la respuesta del servidor
+                    if(response == 'yes'){
+                        location.reload();
+                    }
+                },
+                error: function() {
+                    alert("Error en la petición AJAX");
+                }
+        });
       }
     });
+
+
 });
 </script>
+

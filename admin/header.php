@@ -31,7 +31,7 @@ require_once('../db.php');
               integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
+        <link rel="stylesheet" href="../assets/sweetalert2/sweetalert2.min.css">
         <?php
         //funcion retorna true o false si no existe usertable en session false si es id diferente false
         //si ho hay usertable en session  FALSE

@@ -13,9 +13,9 @@ function DBCreateSenderTable() {
          $r = DBExec($c, "
          CREATE TABLE `sendertable` (
                 `senderid` int(11) NOT NULL AUTO_INCREMENT,   -- (auto_incrementado para el registro)
-                `sendername` int(11),                         -- (nombre del remitente)
-                `senderdetail` varchar(20) NOT NULL,          -- (detalle del remitente)
-                `logdate` int(11) NOT NULL,                   -- (dia/hora de registro)
+                `sendername` varchar(100),                         -- (nombre del remitente)
+                `senderdetail` text,          -- (detalle del remitente)
+                `senderdatetime` int(11) NOT NULL,                   -- (dia/hora de registro)
                 PRIMARY KEY (`senderid`)
         )", "DBCreateSenderTable(create table)");
 
@@ -23,6 +23,35 @@ function DBCreateSenderTable() {
         $r = DBExec($c, "CREATE INDEX `sender_index` ON `sendertable` (`senderid`)", "DBCreateSenderTable(create user_indexname)");
 
 }
+
+
+////////funciones para tabla de remitente///////////
+function DBNewSender($name, $detail, $datetime, $c=null) {
+
+  $t = time();
+  if($datetime <= 0)
+    $datetime = $t;
+  $detail = str_replace("'", "\"", $detail);
+
+  $cw = false;
+	if($c == null) {
+		$cw = true;
+		$c = DBConnect();
+		DBExec($c, "begin work", "DBNewSender(begin)");
+	}
+
+  $sql = "insert into sendertable (sendername, senderdetail, senderdatetime) values " .
+    "('$name','$detail', $datetime)";
+  $r = DBExec ($c, $sql, "DBNewSender(insert)");
+
+  if($cw) DBExec($c, "commit work");
+
+  return 3;
+}
+
+
+
+
 
 function DBDropDocumentTable() {
          $c = DBConnect();
@@ -89,5 +118,24 @@ function DBCreateDocumenthistoryTable() {
         $r = DBExec($c, "CREATE INDEX `documenthistory_index` ON `documenthistorytable` (`historyid`)", "DBCreateDocumenthistoryTable(create user_indexdocumenthistory)");
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

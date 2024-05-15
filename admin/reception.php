@@ -2,15 +2,16 @@
 require('header.php');
 ?>
 <div class="container-fluid px-4">
-  <div class="container">
-    <h3 class="text-center">Asamblea departamental de POTOSI</h3>
-    <div id="carga" class="text-center" style="display:none;">
-      <img src="./imagenes/cargando.gif" />
-    </div>
-    <div id="formulario" style="display:block">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-center">Asamblea Departamental de Potosí</h3>
+
+
+
+
       <form id="registrarentrada" method="post" enctype="multipart/form-data">
         <div class="form-row">
-          <div class="col">
+          <div class="col-12">
             <div class="form-group">
               <div class="form-group row">
                 <label for="origen" class="col-sm-2 col-form-label">origen</label>
@@ -71,6 +72,7 @@ require('header.php');
           </div>
         </div>
       </form>
+
     </div>
   </div>
 

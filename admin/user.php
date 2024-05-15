@@ -38,7 +38,7 @@ $usr = DBAllUserInfo();
                     <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
                 </div>
             </div>
-            
+
             <!--ICPC ID-->
             <div class="mb-3 row">
                 <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
@@ -122,7 +122,7 @@ $usr = DBAllUserInfo();
           <input type="submit" class="btn btn-primary"name="Cancel" value="Cancel" onClick="conf5()">-->
 
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" id="register_button">Registrar</button>
+          <button type="button" class="btn btn-success" id="register_button" >Registrar</button>
         </div>
       <!--</form>-->
       </div>
@@ -309,7 +309,7 @@ $(document).ready(function () {
               userenabled: $('select[name=userenabled_r]').val(),
               usermultilogin: $('select[name=usermultilogin_r]').val(),
               userfullname: $('#userfullname_r').val(),
-              userdesc: $('#userdesc_r').val(),
+              userdesc: $('#userdesc_r').val(), 
               userip: $('#userip_r').val(),
               passwordn1: passwordn1,
               passwordn2: passwordn2,
@@ -324,6 +324,7 @@ $(document).ready(function () {
               success: function(response) {
                   alert(response);
                   // Aquí puedes manejar la respuesta del servidor
+                  location.reload();
               },
               error: function() {
                   alert("Error en la petición AJAX");

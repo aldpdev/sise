@@ -27,7 +27,6 @@ function DBCreateSenderTable() {
 
 ////////funciones para tabla de remitente///////////
 function DBNewSender($name, $detail, $datetime, $c=null) {
-
   $t = time();
   if($datetime <= 0)
     $datetime = $t;
@@ -40,13 +39,20 @@ function DBNewSender($name, $detail, $datetime, $c=null) {
 		DBExec($c, "begin work", "DBNewSender(begin)");
 	}
 
+  DBExec($c, "LOCK TABLES sendertable WRITE", "DBNewSender(lock tables sendertable)");
+
   $sql = "insert into sendertable (sendername, senderdetail, senderdatetime) values " .
     "('$name','$detail', $datetime)";
   $r = DBExec ($c, $sql, "DBNewSender(insert)");
-
-  if($cw) DBExec($c, "commit work");
-
-  return 3;
+  if($r){
+    $idp = mysqli_insert_id($c);
+    DBExec($c, "UNLOCK TABLES", "DBNewSender(unlock tables)");
+    if($cw) DBExec($c, "commit work");
+    return $idp;
+  }else{
+    DBExec($c, "ROLLBACK", "DBNewSender(rollback tables)");
+    return null;
+  }
 }
 
 

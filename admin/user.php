@@ -264,12 +264,6 @@ $(document).ready(function () {
   //  alert('FABIAN SIERRA');
   //});
   $('#register_button').click(function(){
-    //computeHASH();
-
-    //verificar los datos si estan llenado
-
-    /*if(verificardatos()==false)
-     exit;*/
     var username_r = $('#username_r').val();
     var userfullname_r = $('#userfullname_r').val();
 
@@ -336,7 +330,11 @@ $(document).ready(function () {
               success: function(response) {
                   alert(response);
                   // Aquí puedes manejar la respuesta del servidor
-                  location.reload();
+                  if(response != 'yes'){
+                      location.reload();    
+                  }
+
+
               },
               error: function() {
                   alert("Error en la petición AJAX");

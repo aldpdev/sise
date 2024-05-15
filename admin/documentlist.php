@@ -1,4 +1,7 @@
-<?php require('header.php'); ?>
+<?php 
+require('header.php'); 
+
+?>
 <div class="container-fluid px-4">
 
 

@@ -294,14 +294,14 @@ $(document).ready(function () {
 
       $('#username_r, #userfullname_r').on('input', function() {
     // Verificar si el campo está vacío y actuar en consecuencia
-    if ($(this).val().trim() === '') {
-        $(this).addClass('is-invalid');
-        $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
-    } else {
-        $(this).removeClass('is-invalid');
-        $(this).next('.error-message').text('');
-    }
-});
+        if ($(this).val().trim() === '') {
+            $(this).addClass('is-invalid');
+            $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).next('.error-message').text('');
+        }
+      });
     }
     else
     {
@@ -335,8 +335,9 @@ $(document).ready(function () {
               data: formData,
               success: function(response) {
                   alert(response);
-                  // Aquí puedes manejar la respuesta del servidor
-                  location.reload();
+                  if(reponse == "yes"){
+                    location.reload();
+                  }
               },
               error: function() {
                   alert("Error en la petición AJAX");

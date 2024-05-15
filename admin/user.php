@@ -29,16 +29,16 @@ $usr = DBAllUserInfo();
                 <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
                 <div class="col-sm-8">
                     <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
-                    <div id="error-userci_r" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="username_r" class="col-sm-4 col-form-label">Usuario Nombre:</label>
                 <div class="col-sm-8">
                     <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
+                    <div id="error-username_r" class="invalid-feedback"></div>
                 </div>
             </div>
-            
+
             <!--ICPC ID-->
             <div class="mb-3 row">
                 <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
@@ -122,7 +122,7 @@ $usr = DBAllUserInfo();
           <input type="submit" class="btn btn-primary"name="Cancel" value="Cancel" onClick="conf5()">-->
 
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" id="register_button">Registrar</button>
+          <button type="button" class="btn btn-success" id="register_button" >Registrar</button>
         </div>
       <!--</form>-->
       </div>
@@ -267,30 +267,42 @@ $(document).ready(function () {
     //computeHASH();
 
     //verificar los datos si estan llenado
-    
+
     /*if(verificardatos()==false)
      exit;*/
-    var userci_r = $('#userci_r').val();
+    var username_r = $('#username_r').val();
     var userfullname_r = $('#userfullname_r').val();
-    
-    if (userci_r.trim() === '' || userfullname_r.trim() === '' ) {
-      if (cadena1.trim() === '') {
-      $('#userci_r').addClass('is-invalid');
-      $('#error-userci_r').text('ERROR: Este campo es obligatorio')
-      } 
-      else {
-      $('#userci_r').removeClass('is-invalid');
-      $('#error-userci_r').text('');
+
+    if (username_r.trim() === '' || userfullname_r.trim() === '' ) {
+
+      if (username_r.trim() === '') {
+      $('#username_r').addClass('is-invalid');
+      $('#error-username_r').text('ERROR: Este campo es obligatorio');
+      }
+      else{
+      $('#username_r').removeClass('is-invalid');
+      $('#error-username_r').text('');
       }
       if (userfullname_r.trim() === '') {
       $('#userfullname_r').addClass('is-invalid');
       $('#error-userfullname_r').text('ERROR: Este campo es obligatorio');
-      } 
+      }
       else{
       $('#userfullname_r').removeClass('is-invalid');
       $('#error-userfullname_r').text('');
       }
-    } 
+
+      $('#username_r, #userfullname_r').on('input', function() {
+    // Verificar si el campo está vacío y actuar en consecuencia
+    if ($(this).val().trim() === '') {
+        $(this).addClass('is-invalid');
+        $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
+    } else {
+        $(this).removeClass('is-invalid');
+        $(this).next('.error-message').text('');
+    }
+});
+    }
     else
     {
       var passwordn1 = $('#passn1').val();
@@ -324,14 +336,15 @@ $(document).ready(function () {
               success: function(response) {
                   alert(response);
                   // Aquí puedes manejar la respuesta del servidor
+                  location.reload();
               },
               error: function() {
                   alert("Error en la petición AJAX");
               }
       });
     }
-  
-      
+
+
     //alert('test: '+passw+' pass1: '+passwordn1+'pass2: '+passwordn2+'passo: '+passwordo);
 
     /*if (confirm("Confirmar Registro?")){

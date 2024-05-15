@@ -126,7 +126,7 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")) {
                   <span class="bar"></span> 
                   <label for="password">Password</label>
                   <span>
-                    <button id="eye" type="button"><i id="eye-icon" class="far fa-eye"></i></button>
+                    <button id="eye" type="button"><i id="eye-icon" class="far fa-eye-slash"></i></i></button>
                   </span> 
                 </div>
                 <div class="form-group mt-2" align="center">
@@ -149,15 +149,15 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")) {
     $(document).ready(function(){
                 
 
-        function show() {
-          $('#password').attr('type', 'text');
-          $('#eye-icon').removeClass('fa-eye').addClass('fa-eye-slash');
-        }
+       function show() {
+        $('#password').attr('type', 'text');
+        $('#eye-icon').removeClass('fa-eye-slash').addClass('fa-eye');
+                      }
 
-        function hide() {
-          $('#password').attr('type', 'password');
-          $('#eye-icon').removeClass('fa-eye-slash').addClass('fa-eye');
-        }
+       function hide() {
+        $('#password').attr('type', 'password');
+        $('#eye-icon').removeClass('fa-eye').addClass('fa-eye-slash');
+                       }
 
         var pwShown = false;
 

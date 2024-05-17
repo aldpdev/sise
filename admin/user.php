@@ -85,12 +85,15 @@ $usr = DBAllUserInfo();
               <input type="hidden" name="usernumber_r" id="usernumber_r" class="form-control" value="" maxlength="20" />
             </div>
           </div>
-          <div class="mb-3 row">
+          <div class=" mb-3 row ">
+            
             <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
-            <div class="col-sm-8">
+            <div class="col-sm-6">
               <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20"
                 onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+              
             </div>
+
           </div>
           <div class="mb-3 row">
             <label for="username_r" class="col-sm-4 col-form-label">Usuario Nombre:</label>
@@ -343,7 +346,7 @@ require ('footer.php');
 <script>
   $(document).ready(function () {
 
-  $('#register_button').click(function(){
+    $('#register_button').click(function () {
       var username_r = $('#username_r').val();
       var userfullname_r = $('#userfullname_r').val();
 
@@ -421,14 +424,14 @@ require ('footer.php');
         });
       }
 
-      $('#username_r, #userfullname_r').on('input', function() {
+      $('#username_r, #userfullname_r').on('input', function () {
         // Verificar si el campo está vacío y actuar en consecuencia
         if ($(this).val().trim() === '') {
-            $(this).addClass('is-invalid');
-            $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
+          $(this).addClass('is-invalid');
+          $(this).next('.error-message').text('ERROR: Este campo es obligatorio');
         } else {
-            $(this).removeClass('is-invalid');
-            $(this).next('.error-message').text('');
+          $(this).removeClass('is-invalid');
+          $(this).next('.error-message').text('');
         }
       });
     });

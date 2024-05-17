@@ -88,6 +88,7 @@ $usr = DBAllUserInfo();
           <div class="mb-3 row">
             <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
             <div class="col-sm-8">
+              <!--validar que sea numero -->
               <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20"
                 onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
             </div>
@@ -308,12 +309,7 @@ $usr = DBAllUserInfo();
               echo "<a href=\"user.php?user=" .
                 $usr[$i]["usernumber"] . "#form_user\" class=\"btn btn-primary btn-sm\" name=\"\" >Actualizar</a></div>";
             }
-            echo "<script language=\"javascript\">    function conf4(user) {\n";
-            echo "      if (confirm('ADVERTENCIA: eliminar un usuario eliminará por completo TODO lo relacionado con él (incluidas las ejecuciones, aclaraciones, etc.).?')) {\n";
-            //echo "            document.location='https://www.google.com/?hl=es'\n";
-            echo "            document.location='user.php?usernumber='+user+'&confirmation=delete';\n";
-            echo "      }\n";
-            echo "    }</script>\n";
+            
             echo "<script language=\"javascript\">    function conf7(user) {\n";
             echo "      if (confirm('ESTAS SEGURO DE ACTIVAR USUARIO?')) {\n";
             //echo "            document.location='https://www.google.com/?hl=es'\n";
@@ -340,7 +336,22 @@ $usr = DBAllUserInfo();
 <?php
 require ('footer.php');
 ?>
+
+
 <script>
+/*echo "function conf4(user) {\n";
+            echo "      if (confirm('ADVERTENCIA: eliminar un usuario eliminará por completo TODO lo relacionado con él (incluidas las ejecuciones, aclaraciones, etc.).?')) {\n";
+            //echo "            document.location='https://www.google.com/?hl=es'\n";
+            echo "            document.location='user.php?usernumber='+user+'&confirmation=delete';\n";
+            echo "      }\n";
+            echo "    }*/
+
+
+
+  function conf4(user){
+    alert(user);
+    
+  }
   $(document).ready(function () {
 
   $('#register_button').click(function(){

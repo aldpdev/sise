@@ -106,31 +106,53 @@ $usr = DBAllUserInfo();
 
           <!--ICPC ID-->
           <div class="mb-3 row">
-            <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
-            <div class="col-sm-4">
-              <select name="usertype_r" class="form-select" aria-label="Default select example">
-                <option value="secretary">Secretary</option>
-                <option value="admin">Administrador</option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="" class="col-sm-4 col-form-label">Unidad:</label>
-            <div class="col-sm-8">
-              <?php
-              $unit = DBAllUnitInfo();
-              $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
-              $msg .= '<option value="" selected>--</option>\n';
-              for ($i=0; $i < count($unit) ; $i++) {
-                $msg.= '
-                  <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
-                ';
-              }
-              $msg.='</select>';
-              echo $msg;
-              ?>
-            </div>
-          </div>
+    <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
+    <div class="col-sm-4">
+        <select name="usertype_r" id="usertype_r" class="form-select" aria-label="Default select example">
+            <option value="secretary">Secretaria</option>
+            <option value="admin">Administrador</option>
+        </select>
+    </div>
+</div>
+<script>
+    // Function to toggle visibility of unit based on selected user type
+    function toggleUnitVisibility() {
+        var userType = document.getElementById("usertype_r").value;
+        var unidadRow = document.getElementById("unidad_row");
+        
+        userType === "admin"?unidadRow.style.display = "none":unidadRow.style.display = "";
+        
+    }
+
+    // Attach onchange event listener to usertype_r select element
+    document.getElementById("usertype_r").onchange = toggleUnitVisibility;
+
+    // Call toggleUnitVisibility initially to set initial visibility state
+    toggleUnitVisibility();
+</script>
+
+
+
+<div class="mb-3 row" id="unidad_row">
+  <label for="" class="col-sm-4 col-form-label">Unidad:</label>
+  <div class="col-sm-8">
+      <?php
+      $unit = DBAllUnitInfo();
+      $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
+      $msg .= '<option value="" selected>--</option>\n';
+      for ($i=0; $i < count($unit) ; $i++) {
+          $msg.= '
+               <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
+          ';
+       }
+       $msg.='</select>';
+       echo $msg;
+       ?>
+  </div>
+</div>
+
+
+
           <div class="mb-3 row">
             <label for="" class="col-sm-4 col-form-label">Activo:</label>
             <div class="col-sm-2">
@@ -239,9 +261,7 @@ $usr = DBAllUserInfo();
   </div>
 
 
-
-
-
+ 
 
 
 

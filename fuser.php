@@ -1,4 +1,60 @@
 <?php
+function DBDropUnitTable() {
+    //conexcion de la base de datos..
+	 $c = DBConnect();
+	 $r = DBExec($c, "drop table \"unittable\"", "DBDropUnitTable(drop table)");
+}
+function DBCreateUnitTable() {
+	 $c = DBConnect();
+	 $conf = globalconf();
+	 if($conf["dbuser"]=="") $conf["dbuser"]="siseuser";
+	 $r = DBExec($c, "
+CREATE TABLE `unittable` (
+				`unitnumber` int(11) NOT NULL,     	-- (id unidad)
+				`unitname` varchar(100) NOT NULL DEFAULT '',									-- (nombre de unidad)
+				`unitdesc` varchar(100) NOT NULL DEFAULT '',               		-- (unidad descripcion)
+
+        `updatetime` int NOT NULL DEFAULT UNIX_TIMESTAMP(), -- (indica la ultima actualizacion del registro)
+        PRIMARY KEY (`unitnumber`)
+)", "DBCreateUnitTable(create table)");
+
+	$r = DBExec($c, "GRANT ALL PRIVILEGES ON `".$conf["dbname"]."`.`unittable` TO '".$conf["dbuser"]."'@'localhost'", "DBCreateUnitTable(grant siseuser)");
+	$r = DBExec($c, "CREATE UNIQUE INDEX `unit_index` ON `unittable` (`unitnumber`)", "DBCreateUnitTable(create user_index)");
+
+}
+
+//funcion para sacar la informacion de usuario
+function DBUnitInfo($unit, $c=null) {
+
+	$sql = "select * from unittable where unitnumber=$unit";
+	//funcion para capturar la fila del usuario
+	$a = DBGetRow ($sql, 0, $c);
+	if ($a == null) {
+		LOGError("Unable to find the unit in the database. SQL=(" . $sql . ")");
+		MSGError("Unable to find the unit in the database. Contact an admin now!");
+	}
+	return $a;
+}
+
+
+//seleccion la todos los usuario de la base de datos si pasa sitio de ese
+function DBAllUnitInfo() {
+
+	$sql = "select * from unittable where unitnumber != 0 order by unitnumber";
+
+	$c = DBConnect();
+	$r = DBExec ($c, $sql, "DBAllUnitInfo(get users)");
+	$n = DBnlines($r);
+	if ($n == 0) {
+		LOGError("Unable to find units in the database. SQL=(" . $sql . ")");
+		MSGError("¡No se pueden encontrar usuarios en la base de datos!");
+	}
+	$a = array();
+	$a = DBAllRow($r);
+
+	return $a;
+}
+
 //eliminar la tabla de usuarios...
 function DBDropUserTable() {
     //conexcion de la base de datos..
@@ -17,6 +73,7 @@ CREATE TABLE `usertable` (
         `userfullname` varchar(200) NOT NULL,           -- (nombre completo de usuario)
         `userdesc` varchar(300),                        -- (descripcion del usuario etc)
         `usertype` varchar(20) NOT NULL,                -- (admin, admission, teacher, student)
+        `userunit` int(11) NOT NULL,                -- (numero de unidad)
 				`userenabled` tinyint(1) DEFAULT 1 NOT NULL,        -- (usuario activo)
 				`userpermitlogin` tinyint(1) DEFAULT 1 NOT NULL,		-- (usuario esta permitido logueos)
         `usermultilogin` tinyint(1) DEFAULT 0 NOT NULL,     -- (usuario puede loguearse multiples veces)
@@ -29,7 +86,10 @@ CREATE TABLE `usertable` (
         `userpermitip` varchar(300),                    -- (acceso de ip permitido)
         `userinfo` varchar(300) DEFAULT '',
         `updatetime` int NOT NULL DEFAULT UNIX_TIMESTAMP(), -- (indica la ultima actualizacion del registro)
-        PRIMARY KEY (`usernumber`)
+        PRIMARY KEY (`usernumber`),
+				FOREIGN KEY (`userunit`)
+								REFERENCES `unittable` (`unitnumber`)
+								ON DELETE CASCADE ON UPDATE CASCADE
 )", "DBCreateUserTable(create table)");
 
 	$r = DBExec($c, "GRANT ALL PRIVILEGES ON `".$conf["dbname"]."`.`usertable` TO '".$conf["dbuser"]."'@'localhost'", "DBCreateUserTable(grant siseuser)");
@@ -39,22 +99,47 @@ CREATE TABLE `usertable` (
 }
 
 //////////////////////////////funciones de usuarios///////////////////////////////////////
+function DBFakeUnit() {
+	$c = DBConnect();
+	DBExec($c, "begin work");
+
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (0,'unit fake', '')", "DBFakeUser(insert unit fake)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (1,'presidencia', 'Presidencia')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (2,'comision 1', 'Constitucion, Legislacion de Sistema Electoral')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (3,'comision 2', 'Desarrollo Productivo')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (4,'comision 3', 'Desarrollo Economico')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (5,'comision 4', 'Organizacion Territorial')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (6,'comision 5', 'Derechos Humanos')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "insert into unittable (unitnumber, unitname, unitdesc) ".
+		"values (7,'comision 6', 'Comision Mineria')", "DBFakeUser(insert unit presidencia)");
+	DBExec($c, "commit work");
+}
 function DBFakeUser() {
+	DBFakeUnit();
+
 	$c = DBConnect();
 	DBExec($c, "begin work");
 
 	$cf = globalconf();
 	$pass = myhash($cf["basepass"]);
+
 	DBExec($c, "insert into usertable (userci, username, userfullname, ".
-		"userdesc, usertype, userenabled, userpermitlogin, usermultilogin, userpassword, userip, userlastlogin, usersession, ".
+		"userdesc, usertype, userunit, userenabled, userpermitlogin, usermultilogin, userpassword, userip, userlastlogin, usersession, ".
 		"userlastlogout, userpermitip) ".
-		"values ('8161243', 'admin', 'Administrador', NULL, 'admin', 1, 1, ".
+		"values ('8161243', 'admin', 'Administrador', NULL, 'admin', 0, 1, 1, ".
            "1, '$pass', NULL, NULL, '', NULL, NULL)", "DBFakeUser(insert admin user)");
 
 	DBExec($c, "insert into usertable (userci, username, userfullname, ".
-		"userdesc, usertype, userenabled, userpermitlogin, usermultilogin, userpassword, userip, userlastlogin, usersession, ".
+		"userdesc, usertype, userunit, userenabled, userpermitlogin, usermultilogin, userpassword, userip, userlastlogin, usersession, ".
 		"userlastlogout, userpermitip) ".
-		"values ('832345-E0', 'fabian', 'fabian sierra', NULL, 'secretary', 1, 1, ".
+		"values ('832345-E0', 'fabian', 'fabian sierra', NULL, 'secretary', 1, 1, 1, ".
            "1, '$pass', NULL, NULL, '', NULL, NULL)", "DBFakeUser(insert secretary user)");
 
 
@@ -187,7 +272,7 @@ function DBNewUser($param, $c=null, $import=false){
 
 	$ac=array('user');
 	//$ac=array('contest','site','user');
-	$ac1=array('updatetime','userci','username','userfull','userdesc','type','enabled','multilogin','pass','permitip','changepass',
+	$ac1=array('updatetime','userci','username','userfull','userdesc','type','unit','enabled','multilogin','pass','permitip','changepass',
 			   'userip','userlastlogin','userlastlogout','usersession','usersessionextra');
 
 	//$typei['contest']=1;
@@ -213,6 +298,7 @@ function DBNewUser($param, $c=null, $import=false){
 	$userfull='';
 	$userdesc='';
 	$type='secretary';
+	$unit = 0;
 	$enabled=0;
 	$changepass=0;
 	$multilogin=0;
@@ -222,6 +308,7 @@ function DBNewUser($param, $c=null, $import=false){
 	$userip=null;
 	$userlastlogin=null;
 	$userlastlogout=null;
+
 	foreach($ac1 as $key) {
 		if(isset($param[$key])) {
 			$$key = myhtmlspecialchars($param[$key]);
@@ -237,7 +324,10 @@ function DBNewUser($param, $c=null, $import=false){
 
 	if ($type != "admin")
 		$type = "secretary";
-	if ($type == "admin") $changepass = 0;
+	if ($type == "admin"){
+		 $changepass = 0;
+		 $unit = 0;
+	 }
 	if ($enabled != 1) $enabled = 0;
 	if ($multilogin != 1) $multilogin = 0;
 	if ($changepass != 1) $changepass = 0;
@@ -262,8 +352,8 @@ function DBNewUser($param, $c=null, $import=false){
 		if ($a == null) {
 			  	$ret=2;
 					$sql = "insert into usertable (userci, username, userfullname, " .
-    				"userdesc, usertype, userenabled, usermultilogin, userpassword, userpermitip) values " .
-    				"('$userci','$username', '$userfull', '$userdesc', '$type', $enabled, " .
+    				"userdesc, usertype, userunit, userenabled, usermultilogin, userpassword, userpermitip) values " .
+    				"('$userci','$username', '$userfull', '$userdesc', '$type', $unit, $enabled, " .
     				"$multilogin, '$pass', '$permitip')";
     			DBExec ($c, $sql, "DBNewUser(insert)");
 

@@ -5,7 +5,7 @@ require_once("../db.php");
 
 if (isset($_POST["username"]) && isset($_POST["userci"]) && isset($_POST["userfullname"]) && isset($_POST["userdesc"]) && isset($_POST["userip"]) &&
     isset($_POST["usernumber"]) && isset($_POST["userenabled"]) &&
-    isset($_POST["usermultilogin"]) && isset($_POST["usertype"]) &&
+    isset($_POST["usermultilogin"]) && isset($_POST["usertype"]) && isset($_POST["userunit"]) &&
     isset($_POST["passwordn1"]) && isset($_POST["passwordn2"]) && isset($_POST["passwordo"])) {
 
 
@@ -23,6 +23,7 @@ if (isset($_POST["username"]) && isset($_POST["userci"]) && isset($_POST["userfu
 	//$param['useremail'] = htmlspecialchars($_POST["useremail"]);
 	$param['userdesc'] = htmlspecialchars($_POST["userdesc"]);
 	$param['type'] = htmlspecialchars($_POST["usertype"]);
+	$param['unit'] = htmlspecialchars($_POST["userunit"]);
 	$param['permitip'] = htmlspecialchars($_POST["userip"]);
 
 	  $param['changepass']=0;

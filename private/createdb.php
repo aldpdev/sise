@@ -31,6 +31,7 @@ echo "creating database\n";
 DBCreateDatabase();
 
 echo "creating tables\n";
+DBCreateUnitTable();
 DBCreateUserTable();
 DBCreateLogTable();
 DBCreateSenderTable();

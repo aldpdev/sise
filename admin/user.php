@@ -112,6 +112,23 @@ $usr = DBAllUserInfo();
             </div>
           </div>
           <div class="mb-3 row">
+            <label for="" class="col-sm-4 col-form-label">Unidad:</label>
+            <div class="col-sm-8">
+              <?php
+              $unit = DBAllUnitInfo();
+              $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
+              $msg .= '<option value="" selected>--</option>\n';
+              for ($i=0; $i < count($unit) ; $i++) {
+                $msg.= '
+                  <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
+                ';
+              }
+              $msg.='</select>';
+              echo $msg;
+              ?>
+            </div>
+          </div>
+          <div class="mb-3 row">
             <label for="" class="col-sm-4 col-form-label">Activo:</label>
             <div class="col-sm-2">
               <select name="userenabled_r" class="form-select" aria-label="Default select example">
@@ -318,7 +335,7 @@ $usr = DBAllUserInfo();
             echo "    }</script>\n";
             //echo "  <td><a href=\"user.php?site=" . $usr[$i]["usersitenumber"] . "&user=" .
             //$usr[$i]["usernumber"] . "#form_user\">" . "ACTUALIZAR" . "</a>";
-        
+
           } else {
             echo "  <td>" . $usr[$i]["usernumber"];//para el admin
           }
@@ -402,6 +419,7 @@ require ('footer.php');
           userci: $('#userci_r').val(),
           username: $('#username_r').val(),
           usertype: $('select[name=usertype_r]').val(),
+          userunit: $('select[name=userunit_r]').val(),
           userenabled: $('select[name=userenabled_r]').val(),
           usermultilogin: $('select[name=usermultilogin_r]').val(),
           userfullname: $('#userfullname_r').val(),

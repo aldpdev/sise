@@ -84,7 +84,7 @@ function DBCreateDocumentTable() {
                 `senderid` int(11) NOT NULL,                        -- (id del remitente)
                 `userid` int(11) NOT NULL,                          -- (id del usuario)
                 `reference` varchar(100) NOT NULL,                  -- (referencia)
-                `addressee` varchar(100) NOT NULL,                  -- (destinatario)
+                `unitreceived` int(11) NOT NULL,               -- (unidad recibida)
                 `documentcount` int(11) NOT NULL,                   -- (numero de hojas)
                 `documenttype` varchar(50) NOT NULL,                -- (tipo de documento)
                 `documentaffair` text NOT NULL,                     -- (asunto del documento)
@@ -95,6 +95,9 @@ function DBCreateDocumentTable() {
                 PRIMARY KEY (`documentid`),
                 FOREIGN KEY (`senderid`)
                         REFERENCES `sendertable` (`senderid`)
+                        ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (`unitreceived`)
+                        REFERENCES `unittable` (`unitnumber`)
                         ON DELETE CASCADE ON UPDATE CASCADE,
                 FOREIGN KEY (`userid`)
                         REFERENCES `usertable` (`usernumber`)
@@ -111,22 +114,26 @@ function DBNewDocument($param, $c=null){
   if(isset($param['usernumber']) && !isset($param['user'])) $param['user']=$param['usernumber'];
 	if(isset($param['routenumber']) && !isset($param['route'])) $param['route']=$param['routenumber'];
 	if(isset($param['senderid']) && !isset($param['sender'])) $param['sender']=$param['senderid'];
+  if(isset($param['unitreceived']) && !isset($param['received'])) $param['received']=$param['unitreceived'];
 
   if(isset($param['documentreference']) && !isset($param['reference'])) $param['reference']=$param['documentreference'];
-  if(isset($param['documentaddressee']) && !isset($param['addressee'])) $param['addressee']=$param['documentaddressee'];
+  if(isset($param['documentaffair']) && !isset($param['affair'])) $param['affair']=$param['documentaffair'];
+  if(isset($param['documentcount']) && !isset($param['count'])) $param['count']=$param['documentcount'];
   if(isset($param['documenttype']) && !isset($param['type'])) $param['type']=$param['documenttype'];
   if(isset($param['documentdetail']) && !isset($param['detail'])) $param['detail']=$param['documentdetail'];
   if(isset($param['documentimg']) && !isset($param['img'])) $param['img']=$param['documentimg'];
   if(isset($param['documentstatus']) && !isset($param['status'])) $param['status']=$param['documentstatus'];
 
-  $ac=array('route', 'sender', 'user');
+  $ac=array('route', 'sender', 'user', 'received');
 
-	$ac1=array('reference', 'addressee', 'type', 'detail', 'img', 'status', 'updatetime');
+	$ac1=array('reference', 'count', 'affair','type', 'detail', 'img', 'status', 'updatetime');
 
 	$typei['route']=1;
 	$typei['updatetime']=1;
 	$typei['user']=1;
+	$typei['received']=1;
 	$typei['sender']=1;
+	$typei['count']=1;
 	foreach($ac as $key) {
 		if(!isset($param[$key]) || $param[$key]=="") {
 			MSGError("DBNewUser param error: $key not found");
@@ -140,7 +147,6 @@ function DBNewDocument($param, $c=null){
 	}
 
   $reference = NULL;
-  $addressee = NULL;
   $type = NULL;
   $detail = NULL;
   $img = NULL;
@@ -170,9 +176,9 @@ function DBNewDocument($param, $c=null){
   if(!isset($param['documentid'])){
     $ret=2;
 
-    $sql = "insert into documenttable (routenumber, senderid, userid, reference, addressee, documenttype,
-     documentdetail, documentimg, documentstatus, updatetime) values " .
-      "($router, $sender, $user, '$reference', '$addressee', '$type', '$detail', '$img', '$status', $updatetime)";
+    $sql = "insert into documenttable (routenumber, senderid, userid, reference, unitreceived, documentcount,
+     documenttype, documentaffair, documentdetail, documentimg, documentstatus, updatetime) values " .
+      "($route, $sender, $user, '$reference', $received, $count, '$type', '$affair' ,'$detail', '$img', '$status', $updatetime)";
     DBExec ($c, $sql, "DBNewDocument(insert)");
 
     LOGLevel ("Registrado documento.",2);

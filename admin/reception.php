@@ -113,45 +113,27 @@ $(document).ready(function () {
       var asunto= $('#asunto').val();
 
 
-      if (origen.trim() === '' || destinatario.trim() === '' || instruccion.trim() === '' || asunto.trim() === '') {
+      if (origen.trim() === '' || asunto.trim() === '') {
 
         if (origen.trim() === '') {
-        $('#origen').addClass('is-invalid');
-        $('#error-origen').text('ERROR: Este campo es obligatorio');
-        }
-        else{
-        $('#origen').removeClass('is-invalid');
-        $('#error-origen').text('');
-        }
-
-        if (destinatario.trim() === '') {
-        $('#destinatario').addClass('is-invalid');
-        $('#error-destinatario').text('ERROR: Este campo es obligatorio');
-        }
-        else{
-        $('#destinatario').removeClass('is-invalid');
-        $('#error-destinatario').text('');
+          $('#origen').addClass('is-invalid');
+          $('#error-origen').text('ERROR: Este campo es obligatorio');
+        }else{
+          $('#origen').removeClass('is-invalid');
+          $('#error-origen').text('');
         }
 
-        if (instruccion.trim() === '') {
-        $('#instruccion').addClass('is-invalid');
-        $('#error-instruccion').text('ERROR: Este campo es obligatorio');
-        }
-        else{
-        $('#instruccion').removeClass('is-invalid');
-        $('#error-instruccion').text('');
-        }
 
         if (asunto.trim() === '') {
-        $('#asunto').addClass('is-invalid');
-        $('#error-asunto').text('ERROR: Este campo es obligatorio');
+          $('#asunto').addClass('is-invalid');
+          $('#error-asunto').text('ERROR: Este campo es obligatorio');
         }
         else{
-        $('#asunto').removeClass('is-invalid');
-        $('#error-asunto').text('');
+          $('#asunto').removeClass('is-invalid');
+          $('#error-asunto').text('');
         }
 
-        $('#origen, #destinatario, #instruccion, #asunto').on('input', function() {
+        $('#origen, #asunto').on('input', function() {
       // Verificar si el campo está vacío y actuar en consecuencia
           if ($(this).val().trim() === '') {
               $(this).addClass('is-invalid');

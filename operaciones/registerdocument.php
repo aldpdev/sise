@@ -13,13 +13,13 @@ if (isset($_POST["origen"])&& isset($_POST["nhr"]) &&
 	$param['documentreference'] = htmlspecialchars($_POST["referencia"]);
 	$param['documentaffair'] = htmlspecialchars($_POST["asunto"]);
 	//$param['detail'] = htmlspecialchars($_POST["descripcion"]);
-	$param['count'] = htmlspecialchars($_POST["nhojas"]);
+	$param['documentcount'] = htmlspecialchars($_POST["nhojas"]);
 
   $param['documentstatus'] = '';
   $param['documenttype'] = htmlspecialchars($_POST["tipodocumento"]);
 
   $param['usernumber'] = htmlspecialchars($_SESSION['usertable']['usernumber']);
-
+  //echo $param['sendername']."-";
 
   //$nombre_archivo = $_FILES['archivo']['name'];
   //$tipo_archivo = $_FILES['archivo']['type'];
@@ -34,8 +34,14 @@ if (isset($_POST["origen"])&& isset($_POST["nhr"]) &&
   if($r != null && is_numeric($r)){
     $param['senderid'] = $r;
   }
-
-  echo "asdfasdfasdf";
+  $userinfo=DBUserInfo($param['usernumber']);
+  if($userinfo == NULL){
+    echo "No existe el usuario";
+    exit;
+  }
+  $param['unitreceived'] = $userinfo['userunit'];
+  DBNewDocument($param);
+  echo "asdfasdfasdf $r";
   echo "yes";
     //ForceLoad("user.php");
 

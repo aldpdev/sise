@@ -3,16 +3,23 @@ session_start();//para iniciar session_sta
 require_once("../globals.php");
 require_once("../db.php");
 
-
-if (isset($_POST["origen"]) && isset($_POST["destinatario"]) && isset($_POST["instruccion"]) &&
-    isset($_POST["asunto"]) && isset($_POST["descripcion"]) && isset($_POST["nhojas"])) {
+if (isset($_POST["origen"])&& isset($_POST["nhr"]) &&
+    isset($_POST["referencia"]) && isset($_POST["nhojas"]) && isset($_POST["tipodocumento"]) &&
+    isset($_SESSION['usertable']['usernumber'])&& is_numeric($_SESSION['usertable']['usernumber'])) {
 
   $param['sendername'] = htmlspecialchars($_POST["origen"]);//userci
-	$param['destinatario'] = htmlspecialchars($_POST["destinatario"]);
-	$param['instruccion'] = htmlspecialchars($_POST["instruccion"]);
-	$param['asunto'] = htmlspecialchars($_POST["asunto"]);
-	$param['descripcion'] = htmlspecialchars($_POST["descripcion"]);
-	$param['nhojas'] = htmlspecialchars($_POST["nhojas"]);
+  $param['routenumber'] = htmlspecialchars($_POST["nhr"]);
+  //$param['documentaddressee'] = htmlspecialchars($_POST["destinatario"]);
+	$param['documentreference'] = htmlspecialchars($_POST["referencia"]);
+	$param['documentaffair'] = htmlspecialchars($_POST["asunto"]);
+	//$param['detail'] = htmlspecialchars($_POST["descripcion"]);
+	$param['count'] = htmlspecialchars($_POST["nhojas"]);
+
+  $param['documentstatus'] = '';
+  $param['documenttype'] = htmlspecialchars($_POST["tipodocumento"]);
+
+  $param['usernumber'] = htmlspecialchars($_SESSION['usertable']['usernumber']);
+
 
   //$nombre_archivo = $_FILES['archivo']['name'];
   //$tipo_archivo = $_FILES['archivo']['type'];
@@ -22,8 +29,13 @@ if (isset($_POST["origen"]) && isset($_POST["destinatario"]) && isset($_POST["in
 
   //echo "name: ".$param['sendername']."archivo:".$_FILES['archivo']['name'];
   //$name, $detail, $datetime,
-  echo DBNewSender($param['sendername'], '', time());
 
+  $r = DBNewSender($param['sendername'], '', time());
+  if($r != null && is_numeric($r)){
+    $param['senderid'] = $r;
+  }
+
+  echo "asdfasdfasdf";
   echo "yes";
     //ForceLoad("user.php");
 

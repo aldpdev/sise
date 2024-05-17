@@ -88,7 +88,8 @@ $usr = DBAllUserInfo();
           <div class=" mb-3 row ">
             
             <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
+              <!--validar que sea numero -->
               <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20"
                 onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
               
@@ -111,6 +112,23 @@ $usr = DBAllUserInfo();
                 <option value="secretary">Secretary</option>
                 <option value="admin">Administrador</option>
               </select>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="" class="col-sm-4 col-form-label">Unidad:</label>
+            <div class="col-sm-8">
+              <?php
+              $unit = DBAllUnitInfo();
+              $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
+              $msg .= '<option value="" selected>--</option>\n';
+              for ($i=0; $i < count($unit) ; $i++) {
+                $msg.= '
+                  <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
+                ';
+              }
+              $msg.='</select>';
+              echo $msg;
+              ?>
             </div>
           </div>
           <div class="mb-3 row">
@@ -311,12 +329,7 @@ $usr = DBAllUserInfo();
               echo "<a href=\"user.php?user=" .
                 $usr[$i]["usernumber"] . "#form_user\" class=\"btn btn-primary btn-sm\" name=\"\" >Actualizar</a></div>";
             }
-            echo "<script language=\"javascript\">    function conf4(user) {\n";
-            echo "      if (confirm('ADVERTENCIA: eliminar un usuario eliminará por completo TODO lo relacionado con él (incluidas las ejecuciones, aclaraciones, etc.).?')) {\n";
-            //echo "            document.location='https://www.google.com/?hl=es'\n";
-            echo "            document.location='user.php?usernumber='+user+'&confirmation=delete';\n";
-            echo "      }\n";
-            echo "    }</script>\n";
+            
             echo "<script language=\"javascript\">    function conf7(user) {\n";
             echo "      if (confirm('ESTAS SEGURO DE ACTIVAR USUARIO?')) {\n";
             //echo "            document.location='https://www.google.com/?hl=es'\n";
@@ -325,7 +338,7 @@ $usr = DBAllUserInfo();
             echo "    }</script>\n";
             //echo "  <td><a href=\"user.php?site=" . $usr[$i]["usersitenumber"] . "&user=" .
             //$usr[$i]["usernumber"] . "#form_user\">" . "ACTUALIZAR" . "</a>";
-        
+
           } else {
             echo "  <td>" . $usr[$i]["usernumber"];//para el admin
           }
@@ -343,7 +356,22 @@ $usr = DBAllUserInfo();
 <?php
 require ('footer.php');
 ?>
+
+
 <script>
+/*echo "function conf4(user) {\n";
+            echo "      if (confirm('ADVERTENCIA: eliminar un usuario eliminará por completo TODO lo relacionado con él (incluidas las ejecuciones, aclaraciones, etc.).?')) {\n";
+            //echo "            document.location='https://www.google.com/?hl=es'\n";
+            echo "            document.location='user.php?usernumber='+user+'&confirmation=delete';\n";
+            echo "      }\n";
+            echo "    }*/
+
+
+
+  function conf4(user){
+    alert(user);
+    
+  }
   $(document).ready(function () {
 
     $('#register_button').click(function () {
@@ -394,6 +422,7 @@ require ('footer.php');
           userci: $('#userci_r').val(),
           username: $('#username_r').val(),
           usertype: $('select[name=usertype_r]').val(),
+          userunit: $('select[name=userunit_r]').val(),
           userenabled: $('select[name=userenabled_r]').val(),
           usermultilogin: $('select[name=usermultilogin_r]').val(),
           userfullname: $('#userfullname_r').val(),

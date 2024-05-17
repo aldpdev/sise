@@ -11,13 +11,29 @@ require ('header.php');
           <div class="col">
             <div class="form-group ">
               <div class="form-group row mb-3">
-                <label for="origen" class="col-sm-2 col-form-label">Origen</label>
+                <label for="origen" class="col-sm-2 col-form-label">Remitente</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" aria-label="origen" name="origen" id="origen">
                   <div id="error-origen" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="form-group row mb-3">
+                <label for="nhr" class="col-sm-2 col-form-label">Hoja Ruta</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" aria-label="nhr" name="nhr"
+                    id="nhr">
+                    <div id="nhr" class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="form-group row mb-3">
+                <label for="referencia" class="col-sm-2 col-form-label">Referencia</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" aria-label="reference" name="referencia"
+                    id="referencia">
+                    <div id="error-referencia" class="invalid-feedback"></div>
+                </div>
+              </div>
+              <!--<div class="form-group row mb-3">
                 <label for="destinatario" class="col-sm-2 col-form-label">Destinatario</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" aria-label="destinatario" name="destinatario"
@@ -25,6 +41,7 @@ require ('header.php');
                     <div id="error-destinatario" class="invalid-feedback"></div>
                 </div>
               </div>
+
               <div class="form-group row mb-3">
                 <label for="instruccion" class="col-sm-2 col-form-label">Instrucción</label>
                 <div class="col-sm-10">
@@ -32,6 +49,14 @@ require ('header.php');
                   <div id="error-instruccion" class="invalid-feedback"></div>
                 </div>
               </div>
+
+              <div class="form-group row mb-3">
+                <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" style="text-transform: uppercase;" id="descripcion" name="descripcion"
+                    rows="3"></textarea>
+                </div>
+              </div>-->
               <div class="form-group row mb-3">
                 <label for="asunto" class="col-sm-2 col-form-label">Asunto</label>
                 <div class="col-sm-10">
@@ -40,18 +65,21 @@ require ('header.php');
                 </div>
               </div>
               <div class="form-group row mb-3">
-                <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" style="text-transform: uppercase;" id="descripcion" name="descripcion"
-                    rows="3"></textarea>
-                </div>
-              </div>
-              <div class="form-group row mb-3">
                 <label for="nhojas" class="col-sm-2 col-form-label">Número de hojas</label>
                 <div class="col-sm-10">
                   <input type="number" style="text-transform: uppercase;" class="form-control" id="nhojas" name="nhojas" value='0'>
                 </div>
               </div>
+              <div class="form-group row mb-3">
+                <label for="nhojas" class="col-sm-2 col-form-label">Tipo De Documento</label>
+                <div class="col-sm-10">
+                  <select name="tipodocumento" style="text-transform: uppercase;" class="form-select" aria-label="Default select example">
+                    <option value="0">Interno</option>
+                    <option value="1">Externo</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="form-group row mb-3">
                 <label for="archivo" class="col-sm-2 col-form-labell">Adjuntar</label>
                 <div class="col-sm-10">
@@ -83,7 +111,7 @@ $(document).ready(function () {
       var destinatario = $('#destinatario').val();
       var instruccion = $('#instruccion').val();
       var asunto= $('#asunto').val();
-      
+
 
       if (origen.trim() === '' || destinatario.trim() === '' || instruccion.trim() === '' || asunto.trim() === '') {
 
@@ -137,11 +165,14 @@ $(document).ready(function () {
         var archivo = $('#archivo')[0].files[0];
         var formData = new FormData();
         formData.append('origen', $('#origen').val());
-        formData.append('destinatario', $('#destinatario').val());
-        formData.append('instruccion', $('#instruccion').val());
+        formData.append('nhr', $('#nhr').val());
+        //formData.append('destinatario', $('#destinatario').val());
+        formData.append('referencia', $('#referencia').val());
+        //formData.append('instruccion', $('#instruccion').val());
         formData.append('asunto', $('#asunto').val());
-        formData.append('descripcion', $('#descripcion').val());
+        //formData.append('descripcion', $('#descripcion').val());
         formData.append('nhojas', $('#nhojas').val());
+        formData.append('tipodocumento', $('select[name=tipodocumento]').val());
         formData.append('archivo', archivo);
         $.ajax({
                 type: "POST",  // o "GET", dependiendo del método que necesites
@@ -166,4 +197,3 @@ $(document).ready(function () {
 
 });
 </script>
-

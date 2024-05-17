@@ -41,18 +41,26 @@ function DBNewSender($name, $detail, $datetime, $c=null) {
 
   DBExec($c, "LOCK TABLES sendertable WRITE", "DBNewSender(lock tables sendertable)");
 
-  $sql = "insert into sendertable (sendername, senderdetail, senderdatetime) values " .
-    "('$name','$detail', $datetime)";
-  $r = DBExec ($c, $sql, "DBNewSender(insert)");
-  if($r){
-    $idp = mysqli_insert_id($c);
-    DBExec($c, "UNLOCK TABLES", "DBNewSender(unlock tables)");
-    if($cw) DBExec($c, "commit work");
-    return $idp;
+  $a = DBGetRow ("select senderid from sendertable where sendername = '$name'", 0, $c);
+  if($a == null){
+    $sql = "insert into sendertable (sendername, senderdetail, senderdatetime) values " .
+      "('$name','$detail', $datetime)";
+    $r = DBExec ($c, $sql, "DBNewSender(insert)");
+    if($r){
+      $idp = mysqli_insert_id($c);
+      DBExec($c, "UNLOCK TABLES", "DBNewSender(unlock tables)");
+      if($cw) DBExec($c, "commit work");
+      return $idp;
+    }else{
+      DBExec($c, "ROLLBACK", "DBNewSender(rollback tables)");
+      return null;
+    }
   }else{
-    DBExec($c, "ROLLBACK", "DBNewSender(rollback tables)");
-    return null;
+    if($cw) DBExec($c, "commit work");
+    return $a['senderid'];
   }
+
+
 }
 
 
@@ -72,11 +80,14 @@ function DBCreateDocumentTable() {
          $r = DBExec($c, "
          CREATE TABLE `documenttable` (
                 `documentid` int(11) NOT NULL AUTO_INCREMENT,       -- (auto_incrementado para el registro)
-                `routenumber` int(11) NOT NULL,                              -- (numero de ruta)
-                `senderid` int(11) NOT NULL,                    -- (id del remitente)
-                `reference` varchar(100) NOT NULL,                       -- (referencia)
-                `addressee` varchar(100) NOT NULL,                   -- (destinatario)
-                `documenttype` varchar(50) NOT NULL,                       -- (tipo de documento)
+                `routenumber` int(11) NOT NULL,                     -- (numero de ruta)
+                `senderid` int(11) NOT NULL,                        -- (id del remitente)
+                `userid` int(11) NOT NULL,                          -- (id del usuario)
+                `reference` varchar(100) NOT NULL,                  -- (referencia)
+                `addressee` varchar(100) NOT NULL,                  -- (destinatario)
+                `documentcount` int(11) NOT NULL,                   -- (numero de hojas)
+                `documenttype` varchar(50) NOT NULL,                -- (tipo de documento)
+                `documentaffair` text NOT NULL,                     -- (asunto del documento)
                 `documentdetail` text NOT NULL,                     -- (detalle del documento)
                 `documentimg` text NOT NULL,                        -- (imagen)
                 `documentstatus` varchar(20) DEFAULT '',            -- (estado del documento)
@@ -84,6 +95,9 @@ function DBCreateDocumentTable() {
                 PRIMARY KEY (`documentid`),
                 FOREIGN KEY (`senderid`)
                         REFERENCES `sendertable` (`senderid`)
+                        ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (`userid`)
+                        REFERENCES `usertable` (`usernumber`)
                         ON DELETE CASCADE ON UPDATE CASCADE
         )", "DBCreateDocumentTable(create table)");
 
@@ -91,6 +105,91 @@ function DBCreateDocumentTable() {
         $r = DBExec($c, "CREATE INDEX `document_index` ON `documenttable` (`documentid`)", "DBCreateDocumentTable(create user_indexdocument)");
 
 }
+
+function DBNewDocument($param, $c=null){
+
+  if(isset($param['usernumber']) && !isset($param['user'])) $param['user']=$param['usernumber'];
+	if(isset($param['routenumber']) && !isset($param['route'])) $param['route']=$param['routenumber'];
+	if(isset($param['senderid']) && !isset($param['sender'])) $param['sender']=$param['senderid'];
+
+  if(isset($param['documentreference']) && !isset($param['reference'])) $param['reference']=$param['documentreference'];
+  if(isset($param['documentaddressee']) && !isset($param['addressee'])) $param['addressee']=$param['documentaddressee'];
+  if(isset($param['documenttype']) && !isset($param['type'])) $param['type']=$param['documenttype'];
+  if(isset($param['documentdetail']) && !isset($param['detail'])) $param['detail']=$param['documentdetail'];
+  if(isset($param['documentimg']) && !isset($param['img'])) $param['img']=$param['documentimg'];
+  if(isset($param['documentstatus']) && !isset($param['status'])) $param['status']=$param['documentstatus'];
+
+  $ac=array('route', 'sender', 'user');
+
+	$ac1=array('reference', 'addressee', 'type', 'detail', 'img', 'status', 'updatetime');
+
+	$typei['route']=1;
+	$typei['updatetime']=1;
+	$typei['user']=1;
+	$typei['sender']=1;
+	foreach($ac as $key) {
+		if(!isset($param[$key]) || $param[$key]=="") {
+			MSGError("DBNewUser param error: $key not found");
+			return false;
+		}
+		if(isset($typei[$key]) && !is_numeric($param[$key])) {
+			MSGError("DBNewUser param error: $key is not numeric");
+			return false;
+		}
+		$$key = myhtmlspecialchars($param[$key]);
+	}
+
+  $reference = NULL;
+  $addressee = NULL;
+  $type = NULL;
+  $detail = NULL;
+  $img = NULL;
+  $status = NULL;
+	$updatetime=-1;
+
+	foreach($ac1 as $key) {
+		if(isset($param[$key])) {
+			$$key = myhtmlspecialchars($param[$key]);
+			if(isset($typei[$key]) && !is_numeric($param[$key])) {
+				MSGError("DBNewUser param error: $key is not numeric");
+				return false;
+			}
+		}
+	}
+	$t = time();
+	if($updatetime <= 0)
+		$updatetime=$t;
+
+	$cw = false;
+	if($c == null) {
+		$cw = true;
+		$c = DBConnect();
+		DBExec($c, "begin work", "DBNewDocument(begin)");
+	}
+  $ret=1;
+  if(!isset($param['documentid'])){
+    $ret=2;
+
+    $sql = "insert into documenttable (routenumber, senderid, userid, reference, addressee, documenttype,
+     documentdetail, documentimg, documentstatus, updatetime) values " .
+      "($router, $sender, $user, '$reference', '$addressee', '$type', '$detail', '$img', '$status', $updatetime)";
+    DBExec ($c, $sql, "DBNewDocument(insert)");
+
+    LOGLevel ("Registrado documento.",2);
+
+  }else{
+    echo "update en desarrollo..."; //para update
+    //$r = DBExec($c, "select * from usertable where username='$username' and usernumber!=$user", "DBNewUser(get user)");
+
+  	//$n = DBnlines ($r);
+    //if($cw)
+	  //   DBExec ($c, "rollback work");
+  }
+
+	if($cw) DBExec($c, "commit work");
+	return $ret;
+}
+
 
 function DBDropDocumenthistoryTable() {
          $c = DBConnect();

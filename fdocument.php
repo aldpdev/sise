@@ -184,7 +184,7 @@ function DBNewDocument($param, $c=null){
     LOGLevel ("Registrado documento.",2);
 
   }else{
-    echo "update en desarrollo..."; //para update
+    echo "Update en desarrollo..."; //para update
     //$r = DBExec($c, "select * from usertable where username='$username' and usernumber!=$user", "DBNewUser(get user)");
 
   	//$n = DBnlines ($r);
@@ -195,7 +195,23 @@ function DBNewDocument($param, $c=null){
 	if($cw) DBExec($c, "commit work");
 	return $ret;
 }
+//funcion para listar todos los documentos registrados
+function DBAllDocuments() {
 
+	$sql = "select *from documenttable as d inner join sendertable as s on d.senderid=s.senderid";
+
+	$sql .= " order by d.documentid desc";
+	$c = DBConnect();
+	$r = DBExec ($c, $sql, "DBAllDocuments(get users)");
+	$n = DBnlines($r);
+	if ($n == 0) {
+		LOGError("Unable to find users in the database. SQL=(" . $sql . ")");
+		MSGError("¡No se pueden encontrar documentos en la base de datos!");
+	}
+	$a = array();
+	$a = DBAllRow($r);
+	return $a;
+}
 
 function DBDropDocumenthistoryTable() {
          $c = DBConnect();

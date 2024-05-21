@@ -41,7 +41,6 @@ if (isset($_POST["origen"])&& isset($_POST["nhr"]) &&
   }
   $param['unitreceived'] = $userinfo['userunit'];
   DBNewDocument($param);
-  echo "asdfasdfasdf $r";
   echo "yes";
     //ForceLoad("user.php");
 

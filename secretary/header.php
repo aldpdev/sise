@@ -41,12 +41,12 @@ require_once ('../db.php');
   if (!isset($_POST['noflush']))
     ob_end_flush();
   if (!ValidSession()) {
-    InvalidSession("admin/index.php");////funcion para expirar el session y registar 3= debug en logtable
+    InvalidSession("secretary/index.php");////funcion para expirar el session y registar 3= debug en logtable
     ForceLoad("../index.php");//index.php
   }
 
-  if ($_SESSION["usertable"]["usertype"] != "admin") {//system
-    IntrusionNotify("admin/index.php");
+  if ($_SESSION["usertable"]["usertype"] != "secretary") {//system
+    IntrusionNotify("secretary/index.php");
     ForceLoad("../index.php");//index.php
   }
   ?>

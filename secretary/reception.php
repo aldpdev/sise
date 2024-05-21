@@ -13,16 +13,16 @@ require ('header.php');
               <div class="form-group row mb-3">
                 <label for="origen" class="col-sm-2 col-form-label">Remitente</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" aria-label="origen" name="origen" id="remitente">
-                  <div id="error-remitente" class="invalid-feedback"></div>
+                  <input type="text" class="form-control" aria-label="origen" name="origen" id="origen">
+                  <div id="error-origen" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="form-group row mb-3">
                 <label for="nhr" class="col-sm-2 col-form-label">Hoja Ruta</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" aria-label="nhr" name="nhr"
-                    id="hojaruta">
-                    <div id="error-hojaruta" style="text-transform: uppercase;" class="invalid-feedback"></div>
+                    id="nhr">
+                    <div id="nhr" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="form-group row mb-3">
@@ -107,37 +107,22 @@ require ('header.php');
 <script>
 $(document).ready(function () {
     $('#registerdocument_button').click(function(){
-      var remitente = $('#remitente').val();
-      var hojaruta = $('#hojaruta').val();
-      var referencia = $('#referencia').val();
+      var origen = $('#origen').val();
+      var destinatario = $('#destinatario').val();
+      var instruccion = $('#instruccion').val();
       var asunto= $('#asunto').val();
 
 
-      if (remitente.trim() === '' || hojaruta.trim() === '' || referencia.trim() === '' || asunto.trim() === '') {
+      if (origen.trim() === '' || asunto.trim() === '') {
 
-        if (remitente.trim() === '') {
-          $('#remitente').addClass('is-invalid');
-          $('#error-remitente').text('ERROR: Este campo es obligatorio');
+        if (origen.trim() === '') {
+          $('#origen').addClass('is-invalid');
+          $('#error-origen').text('ERROR: Este campo es obligatorio');
         }else{
-          $('#remitente').removeClass('is-invalid');
-          $('#error-remitente').text('');
+          $('#origen').removeClass('is-invalid');
+          $('#error-origen').text('');
         }
 
-        if (hojaruta.trim() === '') {
-          $('#hojaruta').addClass('is-invalid');
-          $('#error-hojaruta').text('ERROR: Este campo es obligatorio');
-        }else{
-          $('#hojaruta').removeClass('is-invalid');
-          $('#error-hojaruta').text('');
-        }
-
-        if (referencia.trim() === '') {
-          $('#referencia').addClass('is-invalid');
-          $('#error-referencia').text('ERROR: Este campo es obligatorio');
-        }else{
-          $('#referencia').removeClass('is-invalid');
-          $('#error-referencia').text('');
-        }
 
         if (asunto.trim() === '') {
           $('#asunto').addClass('is-invalid');

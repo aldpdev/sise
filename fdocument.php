@@ -84,12 +84,13 @@ function DBCreateDocumentTable() {
                 `senderid` int(11) NOT NULL,                        -- (id del remitente)
                 `userid` int(11) NOT NULL,                          -- (id del usuario)
                 `reference` varchar(100) NOT NULL,                  -- (referencia)
-                `unitreceived` int(11) NOT NULL,               -- (unidad recibida)
+                `unitreceived` int(11) NOT NULL,                    -- (unidad recibida)
                 `documentcount` int(11) NOT NULL,                   -- (numero de hojas)
                 `documenttype` varchar(50) NOT NULL,                -- (tipo de documento)
                 `documentaffair` text NOT NULL,                     -- (asunto del documento)
                 `documentdetail` text NOT NULL,                     -- (detalle del documento)
-                `documentimg` text NOT NULL,                        -- (imagen)
+                `documentfilename` text NOT NULL,                    -- (nombre de la imagen)
+                `documentfile` longtext,                        -- (contenido pdf)
                 `documentstatus` varchar(20) DEFAULT '',            -- (estado del documento)
                 `updatetime` int NOT NULL DEFAULT UNIX_TIMESTAMP(), -- (indica la ultima actualizacion del registro)
                 PRIMARY KEY (`documentid`),
@@ -121,12 +122,13 @@ function DBNewDocument($param, $c=null){
   if(isset($param['documentcount']) && !isset($param['count'])) $param['count']=$param['documentcount'];
   if(isset($param['documenttype']) && !isset($param['type'])) $param['type']=$param['documenttype'];
   if(isset($param['documentdetail']) && !isset($param['detail'])) $param['detail']=$param['documentdetail'];
-  if(isset($param['documentimg']) && !isset($param['img'])) $param['img']=$param['documentimg'];
+  if(isset($param['documentfilename']) && !isset($param['filename'])) $param['filename']=$param['documentfilename'];
+  if(isset($param['documentfile']) && !isset($param['file'])) $param['file']=$param['documentfile'];
   if(isset($param['documentstatus']) && !isset($param['status'])) $param['status']=$param['documentstatus'];
 
   $ac=array('route', 'sender', 'user', 'received');
 
-	$ac1=array('reference', 'count', 'affair','type', 'detail', 'img', 'status', 'updatetime');
+	$ac1=array('reference', 'count', 'affair','type', 'detail', 'filename', 'file', 'status', 'updatetime');
 
 	$typei['route']=1;
 	$typei['updatetime']=1;
@@ -136,11 +138,11 @@ function DBNewDocument($param, $c=null){
 	$typei['count']=1;
 	foreach($ac as $key) {
 		if(!isset($param[$key]) || $param[$key]=="") {
-			MSGError("DBNewUser param error: $key not found");
+			MSGError("DBNewDocument param error: $key not found");
 			return false;
 		}
 		if(isset($typei[$key]) && !is_numeric($param[$key])) {
-			MSGError("DBNewUser param error: $key is not numeric");
+			MSGError("DBNewDocument param error: $key is not numeric");
 			return false;
 		}
 		$$key = myhtmlspecialchars($param[$key]);
@@ -149,7 +151,8 @@ function DBNewDocument($param, $c=null){
   $reference = NULL;
   $type = NULL;
   $detail = NULL;
-  $img = NULL;
+  $filename = NULL;
+  $file = NULL;
   $status = NULL;
 	$updatetime=-1;
 
@@ -177,8 +180,8 @@ function DBNewDocument($param, $c=null){
     $ret=2;
 
     $sql = "insert into documenttable (routenumber, senderid, userid, reference, unitreceived, documentcount,
-     documenttype, documentaffair, documentdetail, documentimg, documentstatus, updatetime) values " .
-      "($route, $sender, $user, '$reference', $received, $count, '$type', '$affair' ,'$detail', '$img', '$status', $updatetime)";
+     documenttype, documentaffair, documentdetail, documentfilename, documentfile, documentstatus, updatetime) values " .
+      "($route, $sender, $user, '$reference', $received, $count, '$type', '$affair' ,'$detail', '$filename', '$file', '$status', $updatetime)";
     DBExec ($c, $sql, "DBNewDocument(insert)");
 
     LOGLevel ("Registrado documento.",2);
@@ -215,7 +218,7 @@ function DBAllDocuments() {
 
 function DBDropDocumenthistoryTable() {
          $c = DBConnect();
-         $r = DBExec($c, "drop table \"documenthistorytable\"", "DBDropLogTable(drop table)");
+         $r = DBExec($c, "drop table \"documenthistorytable\"", "DBDropDocumenthistoryTable(drop table)");
 }
 //tabla documento
 function DBCreateDocumenthistoryTable() {
@@ -229,6 +232,8 @@ function DBCreateDocumenthistoryTable() {
                 `documentid` int(11) NOT NULL,                      -- (id del documento)
                 `userid` int(11) NOT NULL,                          -- (id del usuario)
                 `historyacction` varchar(100) NOT NULL,             -- (accion)
+                `historydesc` varchar(100) NOT NULL,                -- (derivado para)
+                `unitid` int(11) NOT NULL,                          -- (unidad derivada)
                 `stdatetime` int(11) NOT NULL,                      -- (fecha de inicio)
                 `endatetime` int(11) NOT NULL,                      -- (fecha de salida)
                 `updatetime` int NOT NULL DEFAULT UNIX_TIMESTAMP(), -- (indica la ultima actualizacion del registro)
@@ -238,6 +243,9 @@ function DBCreateDocumenthistoryTable() {
                         ON DELETE CASCADE ON UPDATE CASCADE,
                 FOREIGN KEY (`userid`)
                         REFERENCES `usertable` (`usernumber`)
+                        ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (`unitid`)
+                        REFERENCES `unittable` (`unitnumber`)
                         ON DELETE CASCADE ON UPDATE CASCADE
         )", "DBCreateDocumenthistoryTable(create table)");
 
@@ -245,9 +253,85 @@ function DBCreateDocumenthistoryTable() {
         $r = DBExec($c, "CREATE INDEX `documenthistory_index` ON `documenthistorytable` (`historyid`)", "DBCreateDocumenthistoryTable(create user_indexdocumenthistory)");
 
 }
+//funcion para registro una historia del documento
+function DBNewDocumenthistory(){
 
+  if(isset($param['documentid']) && !isset($param['document'])) $param['document']=$param['documentid'];
+	if(isset($param['userid']) && !isset($param['user'])) $param['route']=$param['userid'];
+	if(isset($param['historyacction']) && !isset($param['acction'])) $param['acction']=$param['historyacction'];
+	if(isset($param['historydesc']) && !isset($param['desc'])) $param['desc']=$param['historydesc'];
+	if(isset($param['unitid']) && !isset($param['unit'])) $param['unit']=$param['unitid'];
+  if(isset($param['stdatetime']) && !isset($param['st'])) $param['st']=$param['stdatetime'];
+  if(isset($param['endatetime']) && !isset($param['en'])) $param['en']=$param['endatetime'];
 
+  $ac=array('document', 'user', 'unit');
 
+	$ac1=array('acction', 'desc', 'st','en', 'updatetime');
+
+	$typei['document']=1;
+	$typei['user']=1;
+	$typei['unit']=1;
+
+	foreach($ac as $key) {
+		if(!isset($param[$key]) || $param[$key]=="") {
+			MSGError("DBNewDocumenthistory param error: $key not found");
+			return false;
+		}
+		if(isset($typei[$key]) && !is_numeric($param[$key])) {
+			MSGError("DBNewDocumenthistory param error: $key is not numeric");
+			return false;
+		}
+		$$key = myhtmlspecialchars($param[$key]);
+	}
+
+  $acction = NULL;
+  $desc = NULL;
+  $st = -1;
+  $en = -1;
+	$updatetime=-1;
+
+	foreach($ac1 as $key) {
+		if(isset($param[$key])) {
+			$$key = myhtmlspecialchars($param[$key]);
+			if(isset($typei[$key]) && !is_numeric($param[$key])) {
+				MSGError("DBNewDocumenthistory param error: $key is not numeric");
+				return false;
+			}
+		}
+	}
+	$t = time();
+	if($updatetime <= 0)
+		$updatetime=$t;
+
+	$cw = false;
+	if($c == null) {
+		$cw = true;
+		$c = DBConnect();
+		DBExec($c, "begin work", "DBNewDocument(begin)");
+	}
+  $ret=1;
+  if(!isset($param['historyid'])){
+    $ret=2;
+
+    $sql = "insert into documenthistorytable (documentid, userid, historyacction, historydesc, unitid, stdatetime,
+     endatetime, updatetime) values " .
+      "($document, $user, $unit, '$acction', '$desc', $st, $en, $updatetime)";
+    DBExec ($c, $sql, "DBNewDocumenthistory(insert)");
+
+    LOGLevel ("Registrado una historia del documento.",2);
+
+  }else{
+    echo "Update en desarrollo..."; //para update
+    //$r = DBExec($c, "select * from usertable where username='$username' and usernumber!=$user", "DBNewUser(get user)");
+
+  	//$n = DBnlines ($r);
+    //if($cw)
+	  //   DBExec ($c, "rollback work");
+  }
+
+	if($cw) DBExec($c, "commit work");
+	return $ret;
+}
 
 
 

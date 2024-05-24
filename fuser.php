@@ -84,7 +84,9 @@ CREATE TABLE `usertable` (
         `usersessionextra` varchar(50) DEFAULT '',      -- (dos session de usuario)
         `userlastlogout` int(11),                          -- (ultima vez logout)
         `userpermitip` varchar(300),                    -- (acceso de ip permitido)
-        `userinfo` varchar(300) DEFAULT '',
+        `userinfo` varchar(300) DEFAULT '',							-- (informacion del usuario)
+        `userimgname` varchar(300) DEFAULT '',					-- (nombre de la imagen)
+        `userimg` longtext DEFAULT '',									-- (imagen)
         `updatetime` int NOT NULL DEFAULT UNIX_TIMESTAMP(), -- (indica la ultima actualizacion del registro)
         PRIMARY KEY (`usernumber`),
 				FOREIGN KEY (`userunit`)
@@ -269,11 +271,13 @@ function DBNewUser($param, $c=null, $import=false){
 	if(isset($param['userfullname']) && !isset($param['userfull'])) $param['userfull']=$param['userfullname'];
 	if(isset($param['usertype']) && !isset($param['type'])) $param['type']=$param['usertype'];
 	if(isset($param['userpermitip']) && !isset($param['permitip'])) $param['permitip']=$param['userpermitip'];
+	if(isset($param['userimgname']) && !isset($param['imgname'])) $param['imgname']=$param['userimgname'];
+	if(isset($param['userimg']) && !isset($param['img'])) $param['img']=$param['userimg'];
 
 	$ac=array('user');
 	//$ac=array('contest','site','user');
 	$ac1=array('updatetime','userci','username','userfull','userdesc','type','unit','enabled','multilogin','pass','permitip','changepass',
-			   'userip','userlastlogin','userlastlogout','usersession','usersessionextra');
+			   'userip', 'userlastlogin','userlastlogout','usersession','usersessionextra','imgname', 'img');
 
 	//$typei['contest']=1;
 	$typei['updatetime']=1;
@@ -303,6 +307,8 @@ function DBNewUser($param, $c=null, $import=false){
 	$changepass=0;
 	$multilogin=0;
 	$permitip='';
+	$imgname='';
+	$img='';
 	$usersession=null;
 	$usersessionextra=null;
 	$userip=null;
@@ -352,9 +358,9 @@ function DBNewUser($param, $c=null, $import=false){
 		if ($a == null) {
 			  	$ret=2;
 					$sql = "insert into usertable (userci, username, userfullname, " .
-    				"userdesc, usertype, userunit, userenabled, usermultilogin, userpassword, userpermitip) values " .
+    				"userdesc, usertype, userunit, userenabled, usermultilogin, userpassword, userpermitip, userimgname, userimg) values " .
     				"('$userci','$username', '$userfull', '$userdesc', '$type', $unit, $enabled, " .
-    				"$multilogin, '$pass', '$permitip')";
+    				"$multilogin, '$pass', '$permitip', '$imgname', '$img')";
     			DBExec ($c, $sql, "DBNewUser(insert)");
 
 					if($cw) {

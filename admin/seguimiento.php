@@ -1,6 +1,4 @@
-<?php require ('header.php');
-
-?>
+<?php require ('header.php');?>
 
 
 
@@ -9,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <p><b>ORIGIN DEL DOCUMENTO</b></p>
+                <p><b>ORGEN DEL DOCUMENTO</b></p>
                 <br>
                 <div class="border border-primary p-3">
                     asldfkjasldkjflsdakfj
@@ -37,7 +35,7 @@
                     echo '<div class="row">
             <div class="col-12">
                 Beneficiario
-                <div class="row">                
+                <div class="row">
                     <div class="col-2"><img src="../imagenes/perfil.jpg" style="max-width: 50%; height: auto;"></div>
                     <div class="col-4">fechas</div>
                     <div class="col-6">estado</div>
@@ -48,9 +46,9 @@
                         </svg>
                   </div>
 
-                    
+
                     </div>
-                
+
             </div>
         </div>';
                 }
@@ -61,7 +59,7 @@
         <hr>
     </div>
 
-    
+
 
 
     <?php

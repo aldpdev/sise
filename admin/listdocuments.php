@@ -8,6 +8,7 @@ $listdoc = DBAllDocuments();
     <table class="table">
       <thead class="table-dark">
         <tr>
+          <th scope="col">Id Documento</th>
           <th scope="col">Remitente</th>
           <th scope="col">Hoja Ruta</th>
           <th scope="col">Referencia</th>
@@ -21,13 +22,14 @@ $listdoc = DBAllDocuments();
         <?php
         for ($i=0; $i < count($listdoc); $i++) {
           echo "<tr>\n";
+          echo "<td><a href='seguimiento.php?id=".$listdoc[$i]["documentid"]."'>".$listdoc[$i]["documentid"]."</a></td>\n";
           echo "<td>".$listdoc[$i]["sendername"]."</td>\n";
           echo "<td>".$listdoc[$i]["routenumber"]."</td>\n";
           echo "<td>".$listdoc[$i]["reference"]."</td>\n";
           echo "<td>".$listdoc[$i]["documentaffair"]."</td>\n";
           echo "<td>".$listdoc[$i]["documentcount"]."</td>\n";
           echo "<td>".$listdoc[$i]["documenttype"]."</td>\n";
-          echo "<td>".$listdoc[$i]["documentimg"]."</td>\n";
+          echo "<td>".$listdoc[$i]["documentfilename"]."</td>\n";
 
 
           echo "</tr>";

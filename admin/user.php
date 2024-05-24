@@ -64,6 +64,10 @@ $usr = DBAllUserInfo();
   };
 </script>
 
+
+
+
+
 <div class="container-fluid px-4">
   <br>
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#usernewmodal"
@@ -85,35 +89,34 @@ $usr = DBAllUserInfo();
               <input type="hidden" name="usernumber_r" id="usernumber_r" class="form-control" value="" maxlength="20" />
             </div>
           </div>
-          <div class=" mb-3 row ">
+          <div class="input-group mb-2">
 
-            <label for="userci_r" class="col-sm-4 col-form-label">Usuario CI:</label>
-            <div class="col-sm-8">
+            
+               <span for="userci_r" class="input-group-text" id="inputGroup-sizing-default">Usuario CI:</span>
               <!--validar que sea numero -->
               <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20"
                 onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
-
-            </div>
-
-          </div>
-          <div class="mb-3 row">
-            <label for="username_r" class="col-sm-4 col-form-label">Usuario Nombre:</label>
-            <div class="col-sm-8">
-              <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="20" />
-              <div id="error-username_r" class="invalid-feedback"></div>
-            </div>
-          </div>
+        
+          </div>     
+            <div class="input-group mb-2">
+              <span for="username_r" class="input-group-text" id="inputGroup-sizing-default">Usuario Nombre:</span>
+                <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="200" />
+                </div>
+                <div class="col-sm-8">
+                <div id="error-username_r" class="invalid-feedback"></div>
+              </div>
+            
+          
 
           <!--ICPC ID-->
-          <div class="mb-3 row">
-    <label for="usertype" class="col-sm-4 col-form-label">Tipo:</label>
-    <div class="col-sm-4">
-        <select name="usertype_r" id="usertype_r" class="form-select" aria-label="Default select example">
-            <option value="secretary">Secretaria</option>
-            <option value="admin">Administrador</option>
-        </select>
-    </div>
-</div>
+          
+          <div class="input-group mb-2">
+            <label for="usertype" class="input-group-text">Tipo:</label>
+                <select name="usertype_r" id="usertype_r" class="form-select" aria-label="Default select example">
+                    <option value="secretary">Secretaria</option>
+                    <option value="admin">Administrador</option>
+                </select>  
+          </div>
 <script>
     // Function to toggle visibility of unit based on selected user type
     function toggleUnitVisibility() {
@@ -133,72 +136,66 @@ $usr = DBAllUserInfo();
 
 
 
-<div class="mb-3 row" id="unidad_row">
-  <label for="" class="col-sm-4 col-form-label">Unidad:</label>
-  <div class="col-sm-8">
-      <?php
-      $unit = DBAllUnitInfo();
-      $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
-      $msg .= '<option value="" selected>--</option>\n';
-      for ($i=0; $i < count($unit) ; $i++) {
-          $msg.= '
-               <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
-          ';
-       }
-       $msg.='</select>';
-       echo $msg;
-       ?>
-  </div>
-</div>
+          <div class="input-group mb-2" id="unidad_row">
+            <label for="" class="input-group-text">Unidad:</label>
+            
+                <?php
+                $unit = DBAllUnitInfo();
+                $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
+                $msg .= '<option value="" selected>--</option>\n';
+                for ($i=0; $i < count($unit) ; $i++) {
+                    $msg.= '
+                        <option value="'.$unit[$i]['unitnumber'].'">'.$unit[$i]['unitdesc'].'</option>\n
+                    ';
+                }
+                $msg.='</select>';
+                echo $msg;
+                ?>
+            
+          </div>
 
 
 
-          <div class="mb-3 row">
-            <label for="" class="col-sm-4 col-form-label">Activo:</label>
-            <div class="col-sm-2">
+          <div class="input-group mb-2">
+            <label for=""class ="input-group-text">Activo:</label>  
               <select name="userenabled_r" class="form-select" aria-label="Default select example">
                 <option value="t">Yes</option>
                 <option value="f">No</option>
               </select>
-            </div>
+           
           </div>
           <!--MultiLogins (los equipos locales deben establecerse en <b> No </b>):-->
-          <div class="mb-3 row">
-            <label for="" class="col-sm-4 col-form-label">MultiLogins (Loguearse multiples Veces):</label>
-            <div class="col-sm-2">
+          <div class="input-group mb-2">
+            <label for="" class ="input-group-text">Loguearse multiples Veces:</label>
+            
               <select name="usermultilogin_r" class="form-select" aria-label="Default select example">
                 <option value="t">Yes</option>
                 <option value="f">No</option>
               </select>
-            </div>
           </div>
-          <div class="mb-3 row">
-            <label for="userfullname_r" class="col-sm-4 col-form-label">Nombre Completo del Usuario:</label>
-            <div class="col-sm-8">
+          <div class="input-group mb-2">
+            <label for="userfullname_r" class="input-group-text" id="inputGroup-sizing-default">Nombre Completo del Usuario:</label>
               <input type="text" name="userfullname_r" id="userfullname_r" class="form-control" value=""
                 maxlength="200" />
               <div id="error-userfullname_r" class="invalid-feedback"></div>
-            </div>
           </div>
 
-          <div class="mb-3 row">
-            <label for="userdesc_r" class="col-sm-4 col-form-label">Descripcion Usuario:</label>
-            <div class="col-sm-8">
+          <div class="input-group mb-2">
+            <label for="userdesc_r" class="input-group-text">Descripcion Usuario:</label>
+            
               <input type="text" name="userdesc_r" id="userdesc_r" class="form-control" value="" maxlength="300" />
-            </div>
+            
           </div>
-          <div class="mb-3 row">
-            <label for="userip_r" class="col-sm-4 col-form-label">IP Usuario:</label>
-            <div class="col-sm-8">
-              <input type="text" name="userip_r" id="userip_r" class="form-control" value="" size="20" maxlength="20" />
-            </div>
+          <div class="input-group mb-2">
+            <label for="userip_r" class="input-group-text">IP Usuario:</label>
+             <input type="text" name="userip_r" id="userip_r" class="form-control" value="" size="20" maxlength="20" />
           </div>
-          <div class="mb-3 row">
-            <label for="passn1" class="col-sm-4 col-form-label">Contraseña:</label>
-            <div class="col-sm-8">
-              <div class="input-group mb-3">
-                <input type="password" name="passn1" id="passn1" class="form-control" value="" size="20"
-                  maxlength="200" />
+          <div class="input-group mb-2">
+            <label for="passn1" class="input-group-text">Contraseña:</label>
+                <input type="password" name="passn1" id="passn1" class="form-control" value="" size="20"maxlength="200" />
+                </div>  
+                <div class="col-sm-8">
+             
                 <span class="input-group-text" id="pass1Check" style="display: none;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-all" viewBox="0 0 16 16">
@@ -207,18 +204,13 @@ $usr = DBAllUserInfo();
                    0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z" />
                   </svg>
                 </span>
-
-
-              </div>
-            </div>
           </div>
-          <div class="mb-3 row">
-            <label for="passn2" class="col-sm-4 col-form-label">Repitir Contraseña:</label>
-            <div class="col-sm-8">
-              <div class="input-group mb-3">
-
-                <input type="password" name="passn2" id="passn2" class="form-control" value="" size="20"
-                  maxlength="200" />
+          <div class="input-group mb-2">
+            <label for="passn2" class="input-group-text">Repitir Contraseña:</label>         
+              <input type="password" name="passn2" id="passn2" class="form-control" value="" size="20" maxlength="200" />
+              </div>
+              <div class="col-sm-8">
+              
                 <span class="input-group-text" id="pass2Check" style="display: none;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-all" viewBox="0 0 16 16">
@@ -227,31 +219,70 @@ $usr = DBAllUserInfo();
                    0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z" />
                   </svg>
                 </span>
-              </div>
-            </div>
             <div id="error" style="color: red;"></div>
           </div>
-          <div class="mb-3 row">
-            <label for="" class="col-sm-4 col-form-label">Permitir cambio de Contraseña:</label>
-            <div class="col-sm-2">
-              <select name="changepass_r" class="form-select" aria-label="Default select example">
+          <div class="input-group mb-2">
+            <label for="" class="input-group-text">Permitir cambio de Contraseña:</label>
+             <select name="changepass_r" class="form-select" aria-label="Default select example">
                 <option value="t">Yes</option>
                 <option value="f">No</option>
               </select>
-            </div>
           </div>
-          <div class="mb-3 row">
-            <label for="passo" class="col-sm-4 col-form-label">Contraseña del admin:</label>
-            <div class="col-sm-8">
-              <input type="password" name="passo" id="passo" class="form-control" value="" size="20" maxlength="200" />
-            </div>
-          </div>
+          
 
+          <div class="input-group mb-2">
+            <label for="passo" class="input-group-text">Contraseña del admin:</label>
+            <input type="password" name="passo" id="passo" class="form-control" value="" size="20" maxlength="200" />
+          </div>
+          <div class="mb-2 row">
+
+            <div class="col-7 border border-primary py-1 mx-3">
+              <div class="text-center">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Foto de Perfil</h1><br/>
+                <div style="display: inline-block; vertical-align: middle;">
+                  <div class="image-container">
+                      <img src="../imagenes/perfil.jpg" style="max-width: 100%; height: auto;" alt="avatar" id="img" />
+                  </div>
+                </div>
+                <div style="display: inline-block; vertical-align: middle;">
+                  <div class="image-info" style="text-align: center;">
+                    <p style="margin-top: 0; margin-bottom: 0;">Dimensiones<br> recomendadas:<br> 300px x 300px</p>
+                  </div>
+                </div>
+                <br/>
+                <input type="file" name="foto" id="foto" accept="image/*" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer">
+        
+          <style>
+            .image-container {
+              width: 150px;
+              height: 150px;
+              overflow: hidden;
+              display: flex;
+              justify-content: center; /* Centra horizontalmente */
+              align-items: center; /* Centra verticalmente */
+              border: 1px solid #CFCFCF; /* Añade un borde para ver el marco */
+            }
+
+            .image-container img {
+              width: auto; /* Cambia el ancho a automático */
+              height: auto; /* Cambia la altura a automático */
+              max-width: 100%; /* Establece un ancho máximo para evitar que la imagen se desborde */
+              max-height: 100%; /* Establece una altura máxima para evitar que la imagen se desborde */
+            }
+          </style>
+            
+          </style>
+              
+        <div class="modal-footer">  
           <!--<input type="submit" class="btn btn-primary"name="Submit" value="Send" onClick="conf3()">
           <input type="submit" class="btn btn-primary"name="Cancel" value="Cancel" onClick="conf5()">-->
 
+
+          
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-success" id="register_button">Registrar</button>
         </div>
@@ -259,8 +290,8 @@ $usr = DBAllUserInfo();
       </div>
     </div>
   </div>
-
-
+  </form>
+  <script src="imagAñadir.js"></script>
  
 
 

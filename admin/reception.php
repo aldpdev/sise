@@ -86,6 +86,21 @@ require ('header.php');
                   <input class="form-control" accept="application/pdf" type="file" id="archivo" name="archivo">
                 </div>
               </div>
+              <div class="form-group row mb-3">
+
+                <b><label for="" class="text-primary" data-bs-toggle="collapse" data-bs-target="#derivecollapse" aria-expanded="true" aria-controls="derivecollapse"><u>Derivar</u></label></b>
+
+                <div id="derivecollapse" class="accordion-collapse collapse show">
+                  <div class="accordion-body">
+                    <div class="input-group mb-3">
+                      <label class="input-group-text" for="para">Para:</label>
+                      <input type="text" class="form-control" id="para" aria-label="Para" aria-describedby="basic-addon1">
+                      <label class="input-group-text" for="unidad">Unidad:</label>
+                      <input type="text" class="form-control" id="unidad" aria-label="Unidad" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

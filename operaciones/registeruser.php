@@ -28,6 +28,19 @@ if (isset($_POST["username"]) && isset($_POST["userci"]) && isset($_POST["userfu
 
 	  $param['changepass']=0;
 
+    $nombre_archivo = NULL;
+    $param['imgname']='';
+	  $param['img']='';
+
+    if(isset($_FILES['profile']['name'])&&$_FILES['profile']['name']!=""&&$_FILES['profile']['tmp_name']!=""){
+      $param['imgname'] = $_FILES['profile']['name'];
+      $conf=globalconf();
+      $param['img'] = encryptData(file_get_contents($_FILES['profile']['tmp_name']), $conf["key"], false);
+    }
+
+
+
+
     if(htmlspecialchars($_POST["changepass"])=='t')  $param['changepass'] = 1;
 
     $passcheck = $_POST["passwordo"];

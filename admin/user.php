@@ -2,7 +2,7 @@
 require ('header.php');
 
 $usr = DBAllUserInfo();
-
+$conf=globalconf();
 ?>
 <script>
   window.onload = function () {
@@ -91,13 +91,13 @@ $usr = DBAllUserInfo();
           </div>
           <div class="input-group mb-2">
 
-            
+
                <span for="userci_r" class="input-group-text" id="inputGroup-sizing-default">Usuario CI:</span>
               <!--validar que sea numero -->
               <input type="text" name="userci_r" id="userci_r" class="form-control" value="" maxlength="20"
                 onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
-        
-          </div>     
+
+          </div>
             <div class="input-group mb-2">
               <span for="username_r" class="input-group-text" id="inputGroup-sizing-default">Usuario Nombre:</span>
                 <input type="text" name="username_r" id="username_r" class="form-control" value="" maxlength="200" />
@@ -105,26 +105,26 @@ $usr = DBAllUserInfo();
                 <div class="col-sm-8">
                 <div id="error-username_r" class="invalid-feedback"></div>
               </div>
-            
-          
+
+
 
           <!--ICPC ID-->
-          
+
           <div class="input-group mb-2">
             <label for="usertype" class="input-group-text">Tipo:</label>
                 <select name="usertype_r" id="usertype_r" class="form-select" aria-label="Default select example">
                     <option value="secretary">Secretaria</option>
                     <option value="admin">Administrador</option>
-                </select>  
+                </select>
           </div>
 <script>
     // Function to toggle visibility of unit based on selected user type
     function toggleUnitVisibility() {
         var userType = document.getElementById("usertype_r").value;
         var unidadRow = document.getElementById("unidad_row");
-        
+
         userType === "admin"?unidadRow.style.display = "none":unidadRow.style.display = "";
-        
+
     }
 
     // Attach onchange event listener to usertype_r select element
@@ -138,7 +138,7 @@ $usr = DBAllUserInfo();
 
           <div class="input-group mb-2" id="unidad_row">
             <label for="" class="input-group-text">Unidad:</label>
-            
+
                 <?php
                 $unit = DBAllUnitInfo();
                 $msg = '<select name="userunit_r" id="userunit_r"  class="form-select" aria-label="Default select example">';
@@ -151,23 +151,23 @@ $usr = DBAllUserInfo();
                 $msg.='</select>';
                 echo $msg;
                 ?>
-            
+
           </div>
 
 
 
           <div class="input-group mb-2">
-            <label for=""class ="input-group-text">Activo:</label>  
+            <label for=""class ="input-group-text">Activo:</label>
               <select name="userenabled_r" class="form-select" aria-label="Default select example">
                 <option value="t">Yes</option>
                 <option value="f">No</option>
               </select>
-           
+
           </div>
           <!--MultiLogins (los equipos locales deben establecerse en <b> No </b>):-->
           <div class="input-group mb-2">
             <label for="" class ="input-group-text">Loguearse multiples Veces:</label>
-            
+
               <select name="usermultilogin_r" class="form-select" aria-label="Default select example">
                 <option value="t">Yes</option>
                 <option value="f">No</option>
@@ -182,9 +182,9 @@ $usr = DBAllUserInfo();
 
           <div class="input-group mb-2">
             <label for="userdesc_r" class="input-group-text">Descripcion Usuario:</label>
-            
+
               <input type="text" name="userdesc_r" id="userdesc_r" class="form-control" value="" maxlength="300" />
-            
+
           </div>
           <div class="input-group mb-2">
             <label for="userip_r" class="input-group-text">IP Usuario:</label>
@@ -193,9 +193,9 @@ $usr = DBAllUserInfo();
           <div class="input-group mb-2">
             <label for="passn1" class="input-group-text">Contraseña:</label>
                 <input type="password" name="passn1" id="passn1" class="form-control" value="" size="20"maxlength="200" />
-                </div>  
+                </div>
                 <div class="col-sm-8">
-             
+
                 <span class="input-group-text" id="pass1Check" style="display: none;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-all" viewBox="0 0 16 16">
@@ -206,11 +206,11 @@ $usr = DBAllUserInfo();
                 </span>
           </div>
           <div class="input-group mb-2">
-            <label for="passn2" class="input-group-text">Repitir Contraseña:</label>         
+            <label for="passn2" class="input-group-text">Repitir Contraseña:</label>
               <input type="password" name="passn2" id="passn2" class="form-control" value="" size="20" maxlength="200" />
               </div>
               <div class="col-sm-8">
-              
+
                 <span class="input-group-text" id="pass2Check" style="display: none;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-all" viewBox="0 0 16 16">
@@ -228,20 +228,20 @@ $usr = DBAllUserInfo();
                 <option value="f">No</option>
               </select>
           </div>
-          
+
 
           <div class="input-group mb-2">
             <label for="passo" class="input-group-text">Contraseña del admin:</label>
             <input type="password" name="passo" id="passo" class="form-control" value="" size="20" maxlength="200" />
           </div>
-          <div class="mb-2 row">
+          <div class="mb-2 row justify-content-center">
 
             <div class="col-7 border border-primary py-1 mx-3">
               <div class="text-center">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Foto de Perfil</h1><br/>
                 <div style="display: inline-block; vertical-align: middle;">
                   <div class="image-container">
-                      <img src="../imagenes/perfil.jpg" style="max-width: 100%; height: auto;" alt="avatar" id="img" />
+                      <img src="../imagenes/perfil.jpg" style="max-width: 100%; height: auto;" alt="avatar" id="profiledisplay" />
                   </div>
                 </div>
                 <div style="display: inline-block; vertical-align: middle;">
@@ -250,12 +250,12 @@ $usr = DBAllUserInfo();
                   </div>
                 </div>
                 <br/>
-                <input type="file" name="foto" id="foto" accept="image/*" />
+                <input type="file" name="profile" id="profile" accept="image/*" />
               </div>
             </div>
           </div>
         </div>
-        
+
           <style>
             .image-container {
               width: 150px;
@@ -274,15 +274,15 @@ $usr = DBAllUserInfo();
               max-height: 100%; /* Establece una altura máxima para evitar que la imagen se desborde */
             }
           </style>
-            
+
           </style>
-              
-        <div class="modal-footer">  
+
+        <div class="modal-footer">
           <!--<input type="submit" class="btn btn-primary"name="Submit" value="Send" onClick="conf3()">
           <input type="submit" class="btn btn-primary"name="Cancel" value="Cancel" onClick="conf5()">-->
 
 
-          
+
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-success" id="register_button">Registrar</button>
         </div>
@@ -290,17 +290,6 @@ $usr = DBAllUserInfo();
       </div>
     </div>
   </div>
-  </form>
-  <script src="imagAñadir.js"></script>
- 
-
-
-
-
-
-
-
-
 
 
 
@@ -325,15 +314,25 @@ $usr = DBAllUserInfo();
       <tbody>
 
         <?php
+        $conf = globalconf();
         for ($i = 0; $i < count($usr); $i++) {
           echo " <tr>\n";
-          if ($usr[$i]["usernumber"] != 0)
-            echo "  <td><a href=\"user.php?user=" .
+          echo "<td>\n";
+          if(isset($usr[$i]['userimg'])&& $usr[$i]['userimg']!=""){
+            $data=decryptData($usr[$i]['userimg'], $conf["key"]);
+            
+            echo '<img src="'."data:image/png;base64," . base64_encode($data).'" class="img-fluid rounded-circle" style="max-width: 8%; height: auto;" alt="Perfil">';
+
+          }
+
+          if ($usr[$i]["usernumber"] != 0){
+            echo "  <a href=\"user.php?user=" .
               $usr[$i]["usernumber"] . "\">" . $usr[$i]["usernumber"] . "</a>";
-          else
-            echo "  <td>" . $usr[$i]["usernumber"];//para el admin
-          if ($usr[$i]['userenabled'] != 1 && $usr[$i]['userlastlogin'] < 1)
-            echo "(inactive)";
+          }else{
+            echo $usr[$i]["usernumber"];//para el admin
+            if ($usr[$i]['userenabled'] != 1 && $usr[$i]['userlastlogin'] < 1)
+              echo "(inactive)";
+          }
           echo "</td>\n";
 
           //echo "  <td>" . $usr[$i]["usersitenumber"] . "</td>\n";
@@ -410,20 +409,18 @@ require ('footer.php');
 
 
 <script>
-/*echo "function conf4(user) {\n";
-            echo "      if (confirm('ADVERTENCIA: eliminar un usuario eliminará por completo TODO lo relacionado con él (incluidas las ejecuciones, aclaraciones, etc.).?')) {\n";
-            //echo "            document.location='https://www.google.com/?hl=es'\n";
-            echo "            document.location='user.php?usernumber='+user+'&confirmation=delete';\n";
-            echo "      }\n";
-            echo "    }*/
 
 
+$(document).ready(function () {
 
-  function conf4(user){
-    alert(user);
-
-  }
-  $(document).ready(function () {
+    $('#profile').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#profiledisplay').attr('src', e.target.result);
+            $('#profiledisplay').show();
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
 
     $('#register_button').click(function () {
       var username_r = $('#username_r').val();
@@ -468,39 +465,47 @@ require ('footer.php');
         passwordn2 = bighexsoma(js_myhash(passwordn2), js_myhash(passwordo));
 
         passwordo = js_myhash(js_myhash(passwordo) + '<?php echo session_id(); ?>');
-        var formData = {
-          usernumber: $('#usernumber_r').val(),
-          userci: $('#userci_r').val(),
-          username: $('#username_r').val(),
-          usertype: $('select[name=usertype_r]').val(),
-          userunit: $('select[name=userunit_r]').val(),
-          userenabled: $('select[name=userenabled_r]').val(),
-          usermultilogin: $('select[name=usermultilogin_r]').val(),
-          userfullname: $('#userfullname_r').val(),
-          userdesc: $('#userdesc_r').val(),
-          userip: $('#userip_r').val(),
-          passwordn1: passwordn1,
-          passwordn2: passwordn2,
-          changepass: $('select[name=changepass_r]').val(),
-          passwordo: passwordo
-        };
+        //var profile = $('#fotos')[0].files[0];
 
+        var formData = new FormData();
+        formData.append('usernumber', $('#usernumber_r').val());
+        formData.append('userci', $('#userci_r').val());
+        formData.append('username', $('#username_r').val());
+        formData.append('usertype', $('select[name=usertype_r]').val());
+        formData.append('userunit', $('select[name=userunit_r]').val());
+        formData.append('userenabled', $('select[name=userenabled_r]').val());
+        formData.append('usermultilogin', $('select[name=usermultilogin_r]').val());
+        formData.append('userfullname', $('#userfullname_r').val());
+        formData.append('userdesc', $('#userdesc_r').val());
+        formData.append('userip', $('#userip_r').val());
+        formData.append('passwordn1', passwordn1);
+        formData.append('passwordn2', passwordn2);
+        formData.append('changepass', $('select[name=changepass_r]').val());
+        formData.append('passwordo', passwordo);
+
+        var profile = $('#profile')[0];
+        //if (profile.files.length === 0) {
+        //    alert('Por favor selecciona una imagen');
+        //    return;
+        //}
+        formData.append('profile', profile.files[0]);
         $.ajax({
-          type: "POST",  // o "GET", dependiendo del método que necesites
-          url: "../operaciones/registeruser.php",  // URL a la que enviar los datos
-          data: formData,
-          success: function (response) {
-            if (response === "yes") {
-              alert("se registro el usuario");
-              location.reload();
+            type: 'POST',
+            url: '../operaciones/registeruser.php',
+            data: formData,
+            processData: false,  // Evita que jQuery intente procesar el FormData
+            contentType: false,  // Evita que jQuery establezca un tipo de contenido
+            success: function (response) {
+                if (response === 'yes') {
+                    alert('se registró el usuario');
+                    location.reload();
+                } else {
+                    alert(response);
+                }
+            },
+            error: function () {
+                alert('Error en la petición AJAX');
             }
-            else {
-              alert(response);
-            }
-          },
-          error: function () {
-            alert("Error en la petición AJAX");
-          }
         });
       }
 
